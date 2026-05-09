@@ -28,6 +28,32 @@ LPVX30_0040/LPVX30_0040.ip_user_files/
 *.backup.*
 webtalk*
 
+# Vivado generated IP products
+*.dcp
+*.veo
+*.vho
+*_sim_netlist.v
+*_sim_netlist.vhdl
+*_stub.v
+*_stub.vhdl
+*_sv.sv
+*_sv.sveo
+*_ooc.xdc
+*_core.xdc
+xil_txt.in
+xil_txt.out
+HDL/IP/**/*.xdc
+HDL/IP/**/hdl/
+HDL/IP/**/source/
+HDL/IP/**/synth/
+LPVX30_0040/LPVX30_0040.gen/
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/*.xdc
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/hdl/
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/source/
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/synth/
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/user_design/rtl/
+LPVX30_0040/LPVX30_0040.srcs/sources_1/ip/**/user_design/constraints/*.xdc
+
 # Temporary and backup files
 *.bak
 *.tmp
