@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="convertb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="convertb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="9961666666fs"></ZoomStartTime>
+      <ZoomEndTime time="10007666667fs"></ZoomEndTime>
+      <Cursor1Time time="10000000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="286"></NameColumnWidth>
+      <ValueColumnWidth column_width="229"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="29" />
+   <wvobject fp_name="group197" type="group">
+      <obj_property name="label">top</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tvalid" type="logic">
+         <obj_property name="ElementShortName">axsr_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axsr_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tready" type="logic">
+         <obj_property name="ElementShortName">axsr_tready</obj_property>
+         <obj_property name="ObjectShortName">axsr_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tlast" type="logic">
+         <obj_property name="ElementShortName">axsr_tlast</obj_property>
+         <obj_property name="ObjectShortName">axsr_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tdata" type="array">
+         <obj_property name="ElementShortName">axsr_tdata[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tdata[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tuser" type="array">
+         <obj_property name="ElementShortName">axsr_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tkeep" type="array">
+         <obj_property name="ElementShortName">axsr_tkeep[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tkeep[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tstrb" type="array">
+         <obj_property name="ElementShortName">axsr_tstrb[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tstrb[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tdest" type="array">
+         <obj_property name="ElementShortName">axsr_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_tid" type="array">
+         <obj_property name="ElementShortName">axsr_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/i_rst" type="logic">
+         <obj_property name="ElementShortName">i_rst</obj_property>
+         <obj_property name="ObjectShortName">i_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/i_clk" type="logic">
+         <obj_property name="ElementShortName">i_clk</obj_property>
+         <obj_property name="ObjectShortName">i_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tvalid" type="logic">
+         <obj_property name="ElementShortName">axst_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axst_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tready" type="logic">
+         <obj_property name="ElementShortName">axst_tready</obj_property>
+         <obj_property name="ObjectShortName">axst_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tlast" type="logic">
+         <obj_property name="ElementShortName">axst_tlast</obj_property>
+         <obj_property name="ObjectShortName">axst_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tdata" type="array">
+         <obj_property name="ElementShortName">axst_tdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tuser" type="array">
+         <obj_property name="ElementShortName">axst_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tkeep" type="array">
+         <obj_property name="ElementShortName">axst_tkeep[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tkeep[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tstrb" type="array">
+         <obj_property name="ElementShortName">axst_tstrb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tstrb[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tdest" type="array">
+         <obj_property name="ElementShortName">axst_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_tid" type="array">
+         <obj_property name="ElementShortName">axst_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/o_rst" type="logic">
+         <obj_property name="ElementShortName">o_rst</obj_property>
+         <obj_property name="ObjectShortName">o_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/o_clk" type="logic">
+         <obj_property name="ElementShortName">o_clk</obj_property>
+         <obj_property name="ObjectShortName">o_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_info_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_info_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_info_di" type="array">
+         <obj_property name="ElementShortName">axsr_info_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_info_af" type="logic">
+         <obj_property name="ElementShortName">axsr_info_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_info_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_info_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_fifo_wl" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wl</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_fifo_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_fifo_di" type="array">
+         <obj_property name="ElementShortName">axsr_fifo_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_fifo_af" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_fifo_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tdata" type="array">
+         <obj_property name="ElementShortName">ibuf_tdata[63:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tdata[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tid" type="array">
+         <obj_property name="ElementShortName">ibuf_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tready" type="logic">
+         <obj_property name="ElementShortName">ibuf_tready</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tvalid" type="logic">
+         <obj_property name="ElementShortName">ibuf_tvalid</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tstrb" type="array">
+         <obj_property name="ElementShortName">ibuf_tstrb[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tstrb[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tkeep" type="array">
+         <obj_property name="ElementShortName">ibuf_tkeep[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tkeep[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tlast" type="logic">
+         <obj_property name="ElementShortName">ibuf_tlast</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tuser" type="array">
+         <obj_property name="ElementShortName">ibuf_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_tdest" type="array">
+         <obj_property name="ElementShortName">ibuf_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tdata" type="array">
+         <obj_property name="ElementShortName">obuf_tdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tid" type="array">
+         <obj_property name="ElementShortName">obuf_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tready" type="logic">
+         <obj_property name="ElementShortName">obuf_tready</obj_property>
+         <obj_property name="ObjectShortName">obuf_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tvalid" type="logic">
+         <obj_property name="ElementShortName">obuf_tvalid</obj_property>
+         <obj_property name="ObjectShortName">obuf_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tstrb" type="array">
+         <obj_property name="ElementShortName">obuf_tstrb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tstrb[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tkeep" type="array">
+         <obj_property name="ElementShortName">obuf_tkeep[31:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tkeep[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tlast" type="logic">
+         <obj_property name="ElementShortName">obuf_tlast</obj_property>
+         <obj_property name="ObjectShortName">obuf_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tuser" type="array">
+         <obj_property name="ElementShortName">obuf_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/obuf_tdest" type="array">
+         <obj_property name="ElementShortName">obuf_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">obuf_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_trvl_cnt" type="array">
+         <obj_property name="ElementShortName">axsr_trvl_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_trvl_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_trv_cnt" type="array">
+         <obj_property name="ElementShortName">axsr_trv_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_trv_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_trv_dat" type="array">
+         <obj_property name="ElementShortName">axsr_trv_dat[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_trv_dat[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/ibuf_rio_type" type="array">
+         <obj_property name="ElementShortName">ibuf_rio_type[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ibuf_rio_type[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axsr_type_err" type="logic">
+         <obj_property name="ElementShortName">axsr_type_err</obj_property>
+         <obj_property name="ObjectShortName">axsr_type_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_trvl_cnt" type="array">
+         <obj_property name="ElementShortName">axst_trvl_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_trvl_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_trv_cnt" type="array">
+         <obj_property name="ElementShortName">axst_trv_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_trv_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_rio_type" type="array">
+         <obj_property name="ElementShortName">axst_rio_type[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_rio_type[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axst_type_err" type="logic">
+         <obj_property name="ElementShortName">axst_type_err</obj_property>
+         <obj_property name="ObjectShortName">axst_type_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/CLOCK_MODE" type="array">
+         <obj_property name="ElementShortName">CLOCK_MODE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CLOCK_MODE[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/LOOP_NUM" type="array">
+         <obj_property name="ElementShortName">LOOP_NUM[31:0]</obj_property>
+         <obj_property name="ObjectShortName">LOOP_NUM[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/AW" type="array">
+         <obj_property name="ElementShortName">AW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">AW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/DW" type="array">
+         <obj_property name="ElementShortName">DW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/QW" type="array">
+         <obj_property name="ElementShortName">QW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">QW[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group410" type="group">
+      <obj_property name="label">fifo2stream</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_info_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_di" type="array">
+         <obj_property name="ElementShortName">axsr_info_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_af" type="logic">
+         <obj_property name="ElementShortName">axsr_info_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_info_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_wl" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wl</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_di" type="array">
+         <obj_property name="ElementShortName">axsr_fifo_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_af" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/i_rst" type="logic">
+         <obj_property name="ElementShortName">i_rst</obj_property>
+         <obj_property name="ObjectShortName">i_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/i_clk" type="logic">
+         <obj_property name="ElementShortName">i_clk</obj_property>
+         <obj_property name="ObjectShortName">i_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tvalid" type="logic">
+         <obj_property name="ElementShortName">axst_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axst_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tready" type="logic">
+         <obj_property name="ElementShortName">axst_tready</obj_property>
+         <obj_property name="ObjectShortName">axst_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tlast" type="logic">
+         <obj_property name="ElementShortName">axst_tlast</obj_property>
+         <obj_property name="ObjectShortName">axst_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tdata" type="array">
+         <obj_property name="ElementShortName">axst_tdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tuser" type="array">
+         <obj_property name="ElementShortName">axst_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tkeep" type="array">
+         <obj_property name="ElementShortName">axst_tkeep[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tkeep[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tstrb" type="array">
+         <obj_property name="ElementShortName">axst_tstrb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tstrb[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tdest" type="array">
+         <obj_property name="ElementShortName">axst_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_tid" type="array">
+         <obj_property name="ElementShortName">axst_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/o_rst" type="logic">
+         <obj_property name="ElementShortName">o_rst</obj_property>
+         <obj_property name="ObjectShortName">o_rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/o_clk" type="logic">
+         <obj_property name="ElementShortName">o_clk</obj_property>
+         <obj_property name="ObjectShortName">o_clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tvalid" type="logic">
+         <obj_property name="ElementShortName">tvalid</obj_property>
+         <obj_property name="ObjectShortName">tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tready" type="logic">
+         <obj_property name="ElementShortName">tready</obj_property>
+         <obj_property name="ObjectShortName">tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tlast" type="logic">
+         <obj_property name="ElementShortName">tlast</obj_property>
+         <obj_property name="ObjectShortName">tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tdata" type="array">
+         <obj_property name="ElementShortName">tdata[255:0]</obj_property>
+         <obj_property name="ObjectShortName">tdata[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tuser" type="array">
+         <obj_property name="ElementShortName">tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tkeep" type="array">
+         <obj_property name="ElementShortName">tkeep[31:0]</obj_property>
+         <obj_property name="ObjectShortName">tkeep[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tstrb" type="array">
+         <obj_property name="ElementShortName">tstrb[31:0]</obj_property>
+         <obj_property name="ObjectShortName">tstrb[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tdest" type="array">
+         <obj_property name="ElementShortName">tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/tid" type="array">
+         <obj_property name="ElementShortName">tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_rd" type="logic">
+         <obj_property name="ElementShortName">axsr_info_rd</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_do" type="array">
+         <obj_property name="ElementShortName">axsr_info_do[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_do[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_ae" type="logic">
+         <obj_property name="ElementShortName">axsr_info_ae</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_ae</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_em" type="logic">
+         <obj_property name="ElementShortName">axsr_info_em</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_em</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_rd" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_rd</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_rd</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_do" type="array">
+         <obj_property name="ElementShortName">axsr_fifo_do[255:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_do[255:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_ae" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_ae</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_ae</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_em" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_em</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_em</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_rl" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_rl</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_rl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_info_do_l" type="array">
+         <obj_property name="ElementShortName">axsr_info_do_l[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_do_l[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/cur_pkg_upsz" type="array">
+         <obj_property name="ElementShortName">cur_pkg_upsz[12:0]</obj_property>
+         <obj_property name="ObjectShortName">cur_pkg_upsz[12:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/cur_pkg_done" type="logic">
+         <obj_property name="ElementShortName">cur_pkg_done</obj_property>
+         <obj_property name="ObjectShortName">cur_pkg_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/cs" type="array">
+         <obj_property name="ElementShortName">cs[1:0]</obj_property>
+         <obj_property name="ObjectShortName">cs[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/ns" type="array">
+         <obj_property name="ElementShortName">ns[1:0]</obj_property>
+         <obj_property name="ObjectShortName">ns[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/cs_idle" type="logic">
+         <obj_property name="ElementShortName">cs_idle</obj_property>
+         <obj_property name="ObjectShortName">cs_idle</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/cs_proc" type="logic">
+         <obj_property name="ElementShortName">cs_proc</obj_property>
+         <obj_property name="ObjectShortName">cs_proc</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_count_l" type="array">
+         <obj_property name="ElementShortName">axst_count_l[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_count_l[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_trvl_cnt" type="array">
+         <obj_property name="ElementShortName">axsr_trvl_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_trvl_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_trv_cnt" type="array">
+         <obj_property name="ElementShortName">axsr_trv_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_trv_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_rio_type" type="array">
+         <obj_property name="ElementShortName">axsr_rio_type[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_rio_type[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_type_err" type="logic">
+         <obj_property name="ElementShortName">axsr_type_err</obj_property>
+         <obj_property name="ObjectShortName">axsr_type_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/fifo_wr_di_64b" type="array">
+         <obj_property name="ElementShortName">fifo_wr_di_64b[63:0]</obj_property>
+         <obj_property name="ObjectShortName">fifo_wr_di_64b[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axsr_fifo_di_match" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_di_match</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_di_match</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_trvl_cnt" type="array">
+         <obj_property name="ElementShortName">axst_trvl_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_trvl_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_trv_cnt" type="array">
+         <obj_property name="ElementShortName">axst_trv_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_trv_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_rio_type" type="array">
+         <obj_property name="ElementShortName">axst_rio_type[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axst_rio_type[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_type_err" type="logic">
+         <obj_property name="ElementShortName">axst_type_err</obj_property>
+         <obj_property name="ObjectShortName">axst_type_err</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/trv" type="logic">
+         <obj_property name="ElementShortName">trv</obj_property>
+         <obj_property name="ObjectShortName">trv</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/trvl" type="logic">
+         <obj_property name="ElementShortName">trvl</obj_property>
+         <obj_property name="ObjectShortName">trvl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/axst_count" type="logic">
+         <obj_property name="ElementShortName">axst_count</obj_property>
+         <obj_property name="ObjectShortName">axst_count</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/LOOP_NUM" type="array">
+         <obj_property name="ElementShortName">LOOP_NUM[31:0]</obj_property>
+         <obj_property name="ObjectShortName">LOOP_NUM[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/DW" type="array">
+         <obj_property name="ElementShortName">DW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/QW" type="array">
+         <obj_property name="ElementShortName">QW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">QW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/BC" type="array">
+         <obj_property name="ElementShortName">BC[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BC[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/ZW" type="array">
+         <obj_property name="ElementShortName">ZW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ZW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/idle" type="array">
+         <obj_property name="ElementShortName">idle[1:0]</obj_property>
+         <obj_property name="ObjectShortName">idle[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/proc" type="array">
+         <obj_property name="ElementShortName">proc[1:0]</obj_property>
+         <obj_property name="ObjectShortName">proc[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/P_WRAM_STYLE" type="array">
+         <obj_property name="ElementShortName">P_WRAM_STYLE[39:0]</obj_property>
+         <obj_property name="ObjectShortName">P_WRAM_STYLE[39:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/P_RRAM_STYLE" type="array">
+         <obj_property name="ElementShortName">P_RRAM_STYLE[87:0]</obj_property>
+         <obj_property name="ObjectShortName">P_RRAM_STYLE[87:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/P_RRAM_WR_AW" type="array">
+         <obj_property name="ElementShortName">P_RRAM_WR_AW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">P_RRAM_WR_AW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_fifo2axs/P_RRAM_RD_AW" type="array">
+         <obj_property name="ElementShortName">P_RRAM_RD_AW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">P_RRAM_RD_AW[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group614" type="group">
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tvalid" type="logic">
+         <obj_property name="ElementShortName">axsr_tvalid</obj_property>
+         <obj_property name="ObjectShortName">axsr_tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tready" type="logic">
+         <obj_property name="ElementShortName">axsr_tready</obj_property>
+         <obj_property name="ObjectShortName">axsr_tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tlast" type="logic">
+         <obj_property name="ElementShortName">axsr_tlast</obj_property>
+         <obj_property name="ObjectShortName">axsr_tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tdata" type="array">
+         <obj_property name="ElementShortName">axsr_tdata[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tdata[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tuser" type="array">
+         <obj_property name="ElementShortName">axsr_tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tkeep" type="array">
+         <obj_property name="ElementShortName">axsr_tkeep[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tkeep[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tstrb" type="array">
+         <obj_property name="ElementShortName">axsr_tstrb[7:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tstrb[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tdest" type="array">
+         <obj_property name="ElementShortName">axsr_tdest[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tdest[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_tid" type="array">
+         <obj_property name="ElementShortName">axsr_tid[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_tid[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_info_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_info_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_info_di" type="array">
+         <obj_property name="ElementShortName">axsr_info_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_info_af" type="logic">
+         <obj_property name="ElementShortName">axsr_info_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_info_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_info_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_info_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_fifo_wl" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wl</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_fifo_wr" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_wr</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_wr</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_fifo_di" type="array">
+         <obj_property name="ElementShortName">axsr_fifo_di[63:0]</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_di[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_fifo_af" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_af</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_af</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/axsr_fifo_fu" type="logic">
+         <obj_property name="ElementShortName">axsr_fifo_fu</obj_property>
+         <obj_property name="ObjectShortName">axsr_fifo_fu</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tvalid" type="logic">
+         <obj_property name="ElementShortName">tvalid</obj_property>
+         <obj_property name="ObjectShortName">tvalid</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tready" type="logic">
+         <obj_property name="ElementShortName">tready</obj_property>
+         <obj_property name="ObjectShortName">tready</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tlast" type="logic">
+         <obj_property name="ElementShortName">tlast</obj_property>
+         <obj_property name="ObjectShortName">tlast</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tdata" type="array">
+         <obj_property name="ElementShortName">tdata[63:0]</obj_property>
+         <obj_property name="ObjectShortName">tdata[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tkeep" type="array">
+         <obj_property name="ElementShortName">tkeep[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tkeep[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tuser" type="array">
+         <obj_property name="ElementShortName">tuser[63:0]</obj_property>
+         <obj_property name="ObjectShortName">tuser[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/trv" type="logic">
+         <obj_property name="ElementShortName">trv</obj_property>
+         <obj_property name="ObjectShortName">trv</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/trvl" type="logic">
+         <obj_property name="ElementShortName">trvl</obj_property>
+         <obj_property name="ObjectShortName">trvl</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/sof_idle" type="logic">
+         <obj_property name="ElementShortName">sof_idle</obj_property>
+         <obj_property name="ObjectShortName">sof_idle</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/tuser_l" type="array">
+         <obj_property name="ElementShortName">tuser_l[63:0]</obj_property>
+         <obj_property name="ObjectShortName">tuser_l[63:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/DW" type="array">
+         <obj_property name="ElementShortName">DW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">DW[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/convertb/sp_tx_convert/axis_convert_axs2fifo/BC" type="array">
+         <obj_property name="ElementShortName">BC[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BC[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tvalid" type="logic">
+      <obj_property name="ElementShortName">axsr_tvalid</obj_property>
+      <obj_property name="ObjectShortName">axsr_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tready" type="logic">
+      <obj_property name="ElementShortName">axsr_tready</obj_property>
+      <obj_property name="ObjectShortName">axsr_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tlast" type="logic">
+      <obj_property name="ElementShortName">axsr_tlast</obj_property>
+      <obj_property name="ObjectShortName">axsr_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tdata" type="array">
+      <obj_property name="ElementShortName">axsr_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tuser" type="array">
+      <obj_property name="ElementShortName">axsr_tuser[63:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tuser[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tkeep" type="array">
+      <obj_property name="ElementShortName">axsr_tkeep[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tkeep[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tstrb" type="array">
+      <obj_property name="ElementShortName">axsr_tstrb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tstrb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tdest" type="array">
+      <obj_property name="ElementShortName">axsr_tdest[3:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tdest[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axsr_tid" type="array">
+      <obj_property name="ElementShortName">axsr_tid[3:0]</obj_property>
+      <obj_property name="ObjectShortName">axsr_tid[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/i_rst" type="logic">
+      <obj_property name="ElementShortName">i_rst</obj_property>
+      <obj_property name="ObjectShortName">i_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/i_clk" type="logic">
+      <obj_property name="ElementShortName">i_clk</obj_property>
+      <obj_property name="ObjectShortName">i_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tready" type="logic">
+      <obj_property name="ElementShortName">axst_tready</obj_property>
+      <obj_property name="ObjectShortName">axst_tready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tvalid" type="logic">
+      <obj_property name="ElementShortName">axst_tvalid</obj_property>
+      <obj_property name="ObjectShortName">axst_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tlast" type="logic">
+      <obj_property name="ElementShortName">axst_tlast</obj_property>
+      <obj_property name="ObjectShortName">axst_tlast</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tdata" type="array">
+      <obj_property name="ElementShortName">axst_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tuser" type="array">
+      <obj_property name="ElementShortName">axst_tuser[63:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tuser[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tkeep" type="array">
+      <obj_property name="ElementShortName">axst_tkeep[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tkeep[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tstrb" type="array">
+      <obj_property name="ElementShortName">axst_tstrb[7:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tstrb[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tdest" type="array">
+      <obj_property name="ElementShortName">axst_tdest[3:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tdest[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_tid" type="array">
+      <obj_property name="ElementShortName">axst_tid[3:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_tid[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/axst_count" type="array">
+      <obj_property name="ElementShortName">axst_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">axst_count[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/o_rst" type="logic">
+      <obj_property name="ElementShortName">o_rst</obj_property>
+      <obj_property name="ObjectShortName">o_rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/o_clk" type="logic">
+      <obj_property name="ElementShortName">o_clk</obj_property>
+      <obj_property name="ObjectShortName">o_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/convertb/sp_tx_convert/i_axis_buf_i/DW" type="array">
+      <obj_property name="ElementShortName">DW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW[31:0]</obj_property>
+   </wvobject>
+</wave_config>

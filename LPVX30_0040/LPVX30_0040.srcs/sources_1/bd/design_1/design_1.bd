@@ -1,0 +1,122 @@
+{
+  "design": {
+    "design_info": {
+      "boundary_crc": "0x0",
+      "device": "xc7vx690tffg1761-2",
+      "name": "design_1",
+      "synth_flow_mode": "Hierarchical",
+      "tool_version": "2018.3"
+    },
+    "design_tree": {
+      "xdma_0": "",
+      "util_ds_buf_0": "",
+      "ila_0": ""
+    },
+    "interface_ports": {
+      "CLK_IN_D_0": {
+        "mode": "Slave",
+        "vlnv": "xilinx.com:interface:diff_clock_rtl:1.0"
+      },
+      "pcie_cfg_mgmt_0": {
+        "mode": "Slave",
+        "vlnv": "xilinx.com:interface:pcie_cfg_mgmt_rtl:1.0"
+      },
+      "pcie_mgt_0": {
+        "mode": "Master",
+        "vlnv": "xilinx.com:interface:pcie_7x_mgt_rtl:1.0"
+      }
+    },
+    "ports": {
+      "sys_rst_n_0": {
+        "type": "rst",
+        "direction": "I"
+      }
+    },
+    "components": {
+      "xdma_0": {
+        "vlnv": "xilinx.com:ip:xdma:4.1",
+        "xci_name": "design_1_xdma_0_0"
+      },
+      "util_ds_buf_0": {
+        "vlnv": "xilinx.com:ip:util_ds_buf:2.1",
+        "xci_name": "design_1_util_ds_buf_0_0",
+        "parameters": {
+          "C_BUF_TYPE": {
+            "value": "IBUFDSGTE"
+          }
+        }
+      },
+      "ila_0": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "xci_name": "design_1_ila_0_0",
+        "parameters": {
+          "C_ENABLE_ILA_AXI_MON": {
+            "value": "false"
+          },
+          "C_MONITOR_TYPE": {
+            "value": "Native"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "1"
+          }
+        }
+      }
+    },
+    "interface_nets": {
+      "CLK_IN_D_0_1": {
+        "interface_ports": [
+          "CLK_IN_D_0",
+          "util_ds_buf_0/CLK_IN_D"
+        ]
+      },
+      "pcie_cfg_mgmt_0_1": {
+        "interface_ports": [
+          "pcie_cfg_mgmt_0",
+          "xdma_0/pcie_cfg_mgmt"
+        ]
+      },
+      "xdma_0_pcie_mgt": {
+        "interface_ports": [
+          "pcie_mgt_0",
+          "xdma_0/pcie_mgt"
+        ]
+      }
+    },
+    "nets": {
+      "util_ds_buf_0_IBUF_OUT": {
+        "ports": [
+          "util_ds_buf_0/IBUF_OUT",
+          "xdma_0/sys_clk"
+        ]
+      },
+      "sys_rst_n_0_1": {
+        "ports": [
+          "sys_rst_n_0",
+          "xdma_0/sys_rst_n"
+        ]
+      },
+      "util_ds_buf_0_IBUF_DS_ODIV2": {
+        "ports": [
+          "util_ds_buf_0/IBUF_DS_ODIV2",
+          "ila_0/clk"
+        ]
+      },
+      "xdma_0_user_lnk_up": {
+        "ports": [
+          "xdma_0/user_lnk_up",
+          "ila_0/probe0"
+        ]
+      }
+    },
+    "addressing": {
+      "/xdma_0": {
+        "address_spaces": {
+          "M_AXI": {
+            "range": "16E",
+            "width": "32"
+          }
+        }
+      }
+    }
+  }
+}

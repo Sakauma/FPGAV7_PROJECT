@@ -1,0 +1,40 @@
+# Local contributor/agent notes
+AGENTS.md
+
+# Vivado generated directories
+.Xil/
+*.cache/
+*.runs/
+*.sim/
+*.hw/
+*.ioplanning/
+*.ip_user_files/
+LPVX30_0040/LPVX30_0040.cache/
+LPVX30_0040/LPVX30_0040.runs/
+LPVX30_0040/LPVX30_0040.sim/
+LPVX30_0040/LPVX30_0040.hw/
+LPVX30_0040/LPVX30_0040.ioplanning/
+LPVX30_0040/LPVX30_0040.ip_user_files/
+
+# Vivado logs, journals, reports, and simulator databases
+*.jou
+*.log
+*.rpt
+*.pb
+*.wdb
+*.wcfg.bak
+*.str
+*.dmp
+*.backup.*
+webtalk*
+
+# Temporary and backup files
+*.bak
+*.tmp
+*.lock
+*.zip
+Thumbs.db
+desktop.ini
+
+# Local publish workspace
+_publish/

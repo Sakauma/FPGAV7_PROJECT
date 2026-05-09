@@ -1,0 +1,249 @@
+//	`define	DBG_ILA
+////////	----	开发测试时使用，开发者更�?	begin	----////////	
+//	`define	PCI_AXIS_LOOPBACK
+//	`define	DMA_AXIS_LOOPBACK
+//	`define	SRIO_AXIS_LOOPBACK
+//	`define	DN_USER_DDR3
+////////	----	开发测试时使用，开发者更�?	end		----////////	
+	
+////////	----	设置板卡属性，	begin	----////////	
+
+	`define		V7
+
+	`define	SRIO_PHY_LANE		4
+	`define	LANE_IN_BANK		4
+	
+	`define	TIME_VERISON_0	32'h2022_0325
+	`define	TIME_VERISON_1	32'h1402_1000	//	48bit	TIME	+	16bit Verison
+	`ifdef		KU		`define	HARD_VERISON_0	32'h2300_8200	//	16b	prj_VER	+	8b	FPGA_VER	(71-A7,82-ku,93-vup)	+	8bit	SUB_VER
+	`elsif		K7		`define	HARD_VERISON_0	32'h2300_7200	//	16b	prj_VER	+	8b	FPGA_VER	(71-A7,82-ku,93-vup)	+	8bit	SUB_VER
+	`elsif		V7		`define	HARD_VERISON_0	32'h2300_7300	//	16b	prj_VER	+	8b	FPGA_VER	(71-A7,82-ku,93-vup)	+	8bit	SUB_VER
+	`elsif		Z7		`define	HARD_VERISON_0	32'h2300_7900	//	16b	prj_VER	+	8b	FPGA_VER	(71-A7,82-ku,93-vup)	+	8bit	SUB_VER
+	`endif
+////////	----	设置板卡属性，	end		----////////		
+
+
+////////	----	设置功能属性，	begin	----////////	
+ 	`define	ENABLE_SIM_ONLY
+//	`define	ENABLE_BM_ONLY
+//	`define	ENABLE_BM_SIM
+//	`define	ENABLE_GT_ONLY
+	
+	`define	SRIO_TYPE_5G2X8B
+
+//	`define	DBG_ILA
+
+////////	----	设置功能属性，	end		----////////		
+	
+
+////////	----	Auto generate	,	dont	touch	----////////
+
+	`define	SRIO_FUNC_TIME_H	32'h1000_2021
+	`define	SRIO_FUNC_TIME_L	32'h0922_1019
+
+	`ifdef	ENABLE_BM_SIM	
+		`define	ENABLE_SIM
+		`define	ENABLE_BM	
+	`elsif	ENABLE_BM_ONLY	
+		`define	ENABLE_BM	
+	`elsif	ENABLE_SIM_ONLY
+		`define	ENABLE_SIM
+	`elsif	ENABLE_GT_ONLY	
+		`define	ENABLE_GT
+	`endif
+
+	`ifdef	SRIO_TYPE_1G1X8B
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_1G2X8B	
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_1G4X8B	
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_2G1X8B	
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+		`define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_2G2X8B	
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+		`define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_2G4X8B	
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			8
+	`elsif	SRIO_TYPE_3G1X8B	
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+	    `define	SRIO_ID			8
+	`elsif	SRIO_TYPE_3G2X8B	
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+	    `define	SRIO_ID			8
+	`elsif	SRIO_TYPE_3G4X8B	
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			8
+	`elsif	SRIO_TYPE_5G1X8B	
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_5G2X8B	
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_5G4X8B	
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+		`define	SRIO_ID			8
+	`elsif	SRIO_TYPE_6G1X8B	
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			8
+		`define	REF_CLK_156	
+	`elsif	SRIO_TYPE_6G2X8B	
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			8
+		`define	REF_CLK_156	
+	`elsif	SRIO_TYPE_6G4X8B	
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			8
+		`define	REF_CLK_156	
+	`elsif	SRIO_TYPE_1G1X16B
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_1G2X16B
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_1G4X16B
+		`define	S1GBIT	
+		`define	SRIO_SPEED		1
+		`define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_2G1X16B
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+		`define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_2G2X16B
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+		`define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_2G4X16B
+		`define	S2GBIT	
+		`define	SRIO_SPEED		2
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			16
+	`elsif	SRIO_TYPE_3G1X16B
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+	    `define	SRIO_ID			16
+	`elsif	SRIO_TYPE_3G2X16B
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+	    `define	SRIO_ID			16
+	`elsif	SRIO_TYPE_3G4X16B
+		`define	S3GBIT	
+		`define	SRIO_SPEED		3
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			16
+	`elsif	SRIO_TYPE_5G1X16B
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_5G2X16B
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_5G4X16B
+		`define	S5GBIT	
+		`define	SRIO_SPEED		5
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+		`define	SRIO_ID			16
+	`elsif	SRIO_TYPE_6G1X16B
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_1_LANE	
+		`define	SRIO_CH_LANE	1
+		`define	SRIO_ID			16
+		`define	REF_CLK_156	
+	`elsif	SRIO_TYPE_6G2X16B
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_2_LANE	
+		`define	SRIO_CH_LANE	2
+		`define	SRIO_ID			16
+		`define	REF_CLK_156	
+	`elsif	SRIO_TYPE_6G4X16B
+		`define	S6GBIT	
+		`define	SRIO_SPEED		6
+	    `define	SRIO_4_LANE	
+		`define	SRIO_CH_LANE	4
+	    `define	SRIO_ID			16
+		`define	REF_CLK_156
+	`endif
+	
+	`ifdef	S6GBIT
+		`define	IDLE_1			0
+		`define	IDLE_2			1
+	`else
+		`define	IDLE_1			1
+		`define	IDLE_2			0
+	`endif
