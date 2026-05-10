@@ -15,7 +15,7 @@ launch_runs synth_1 -jobs 8
 launch_runs impl_1 -to_step write_bitstream -jobs 8
 ```
 
-首次克隆后建议先打开工程，检查 IP Status；如 Vivado 提示重新生成 output products，按提示生成即可，不要提交 `.runs`、`.cache`、`.sim`、`.hw`、日志、波形数据库和 DCP 等生成物。
+首次克隆后建议先打开工程，检查 IP Status；如 Vivado 提示重新生成 output products，按提示生成即可。仓库会保留 MIG、PCIe 和 SRIO 补丁流程必需的少量 DCP/RTL；除此之外，不要提交 `.runs`、`.cache`、`.sim`、`.hw`、日志、波形数据库和其他生成物。
 综合前置脚本会在缺少 MIG/PCIe/SRIO output products 或 DCP 时自动重新生成相关 IP，并运行对应 OOC 综合准备 checkpoint，因此首次综合耗时会更长。
 
 ## 目录导读

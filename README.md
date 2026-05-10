@@ -66,7 +66,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 
 ## 仓库维护约定
 
-不要提交 Vivado 生成目录和中间产物，例如：
+一般不要提交 Vivado 生成目录和中间产物，例如：
 
 - `.Xil`
 - `*.cache`
@@ -78,5 +78,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 - `*.jou`
 - `*.dcp`
 - 仿真波形和本地备份文件
+
+本仓库已跟踪少量综合前置补丁依赖的 IP 产物，包括 MIG、PCIe 和 SRIO 的必要 DCP/RTL。不要删除这些已跟踪文件；新增其他生成物前应确认它们是否为首次综合必需。
 
 更多工程结构、学习路线和参考开源仓库见 `DEVELOPMENT_GUIDE.md`。

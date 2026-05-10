@@ -1,8 +1,34 @@
-set current_prj_path [get_property DIRECTORY [current_project] -quiet]
-if {$current_prj_path eq ""} {
+proc resolve_project_dir {} {
+    set candidates {}
     set parent [get_property parent.project_path [current_project] -quiet]
-    set current_prj_path [file dirname $parent]
+    if {$parent ne ""} {
+        lappend candidates [file dirname $parent]
+    }
+
+    set project_dir [get_property DIRECTORY [current_project] -quiet]
+    if {$project_dir ne ""} {
+        set probe [file normalize $project_dir]
+        for {set i 0} {$i < 6} {incr i} {
+            lappend candidates $probe
+            set next_probe [file dirname $probe]
+            if {$next_probe eq $probe} {
+                break
+            }
+            set probe $next_probe
+        }
+    }
+
+    foreach candidate $candidates {
+        set candidate [file normalize $candidate]
+        if {[file exists [file join $candidate "ip_patch" "run.tcl"]] && [llength [glob -nocomplain [file join $candidate "*.xpr"]]] > 0} {
+            return $candidate
+        }
+    }
+
+    error "Unable to resolve Vivado project directory from current project context"
 }
+
+set current_prj_path [resolve_project_dir]
 set current_prj_path [file normalize $current_prj_path]
 set ::env(JFM_PATH) $current_prj_path
 set run_tcl_path [file join $::env(JFM_PATH) "ip_patch" "run.tcl"]
@@ -15,11 +41,11 @@ proc ensure_mig_dcp {project_dir} {
     set mig_rtl [file join $project_dir "LPVX30_0040.srcs" "sources_1" "ip" $ip_name $ip_name "user_design" "rtl" "${ip_name}.v"]
     set mig_axi_rtl [file join $project_dir "LPVX30_0040.srcs" "sources_1" "ip" $ip_name $ip_name "user_design" "rtl" "axi" "mig_7series_v4_2_axi_ctrl_addr_decode.v"]
 
-    if {[file exists $src_dcp]} {
+    if {[file exists $src_dcp] && [file exists $mig_rtl] && [file exists $mig_axi_rtl]} {
         return
     }
 
-    if {![file exists $run_dcp]} {
+    if {![file exists $run_dcp] || ![file exists $mig_rtl] || ![file exists $mig_axi_rtl]} {
         set ip_obj [get_ips -quiet $ip_name]
         if {[llength $ip_obj] == 0} {
             error "Required IP '$ip_name' was not found while preparing $src_dcp"
@@ -39,6 +65,10 @@ proc ensure_mig_dcp {project_dir} {
 
         if {![file exists $mig_rtl] || ![file exists $mig_axi_rtl]} {
             error "MIG output products are still missing after regeneration. Missing example files: $mig_rtl or $mig_axi_rtl"
+        }
+
+        if {[file exists $src_dcp]} {
+            return
         }
 
         if {[llength [get_runs -quiet ${ip_name}_synth_1]] == 0} {
