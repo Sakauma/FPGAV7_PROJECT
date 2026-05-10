@@ -76,6 +76,74 @@ proc ensure_mig_dcp {project_dir} {
     puts "Prepared MIG checkpoint: $src_dcp"
 }
 
+proc ensure_ip_dcp {project_dir ip_name dst_dcp} {
+    set run_name "${ip_name}_synth_1"
+    set run_dcp [file join $project_dir "LPVX30_0040.runs" $run_name "${ip_name}.dcp"]
+
+    if {[file exists $dst_dcp]} {
+        return
+    }
+
+    set ip_obj [get_ips -quiet $ip_name]
+    if {[llength $ip_obj] == 0} {
+        error "Required IP '$ip_name' was not found while preparing $dst_dcp"
+    }
+
+    puts "$ip_name checkpoint is missing. Regenerating output products."
+    catch {reset_target all $ip_obj} reset_msg
+    if {$reset_msg ne ""} {
+        puts "reset_target all $ip_name: $reset_msg"
+    }
+    if {[catch {generate_target all $ip_obj} gen_msg]} {
+        error "Failed to generate output products for $ip_name: $gen_msg"
+    }
+    if {$gen_msg ne ""} {
+        puts "generate_target all $ip_name: $gen_msg"
+    }
+
+    if {[file exists $dst_dcp]} {
+        return
+    }
+
+    if {[llength [get_runs -quiet $run_name]] == 0} {
+        catch {create_ip_run $ip_obj} create_msg
+        if {$create_msg ne ""} {
+            puts "create_ip_run $ip_name: $create_msg"
+        }
+    }
+
+    set ip_run [get_runs -quiet $run_name]
+    if {[llength $ip_run] == 0} {
+        error "Unable to create Vivado OOC run $run_name"
+    }
+
+    set run_status [get_property STATUS $ip_run]
+    if {![string match "*Complete*" $run_status] || ![file exists $run_dcp]} {
+        catch {reset_run $run_name}
+        puts "Launching $run_name to generate $ip_name checkpoint."
+        launch_runs $run_name -jobs 8
+        wait_on_run $run_name
+        set run_status [get_property STATUS [get_runs $run_name]]
+    }
+
+    if {![string match "*Complete*" $run_status]} {
+        error "$run_name did not complete successfully: $run_status"
+    }
+    if {![file exists $run_dcp]} {
+        error "Unable to locate generated checkpoint for $ip_name: $run_dcp"
+    }
+
+    file mkdir [file dirname $dst_dcp]
+    file copy -force $run_dcp $dst_dcp
+    puts "Prepared $ip_name checkpoint: $dst_dcp"
+}
+
+proc ensure_patch_ip_dcps {project_dir} {
+    set repo_dir [file dirname $project_dir]
+    ensure_ip_dcp $project_dir "pcie3_8x8g_0" [file join $repo_dir "HDL" "IP" "xc7vx690tffg19272i" "pcie3_ep_wrap" "pcie3_8x8g_0" "pcie3_8x8g_0.dcp"]
+    ensure_ip_dcp $project_dir "srio_gen2_5g_2x_8b" [file join $repo_dir "HDL" "IP" "xc7vx690tffg19272i" "srio_support" "srio_support_5g_2x_8b" "srio_gen2_5g_2x_8b" "srio_gen2_5g_2x_8b.dcp"]
+}
+
 set prj_candidates [glob -nocomplain [file join $current_prj_path "*.xpr"]]
 if {[llength $prj_candidates] > 0} {
     set prj_path [lindex $prj_candidates 0]
@@ -89,6 +157,7 @@ if {[catch {open_project $prj_path} open_msg]} {
     puts "Project is already open: $prj_path"
 }
 ensure_mig_dcp $current_prj_path
+ensure_patch_ip_dcps $current_prj_path
 puts "step 1:pre_patch_check"
 pre_patch_check
 puts "step 2:pre_synthesis_patch"
