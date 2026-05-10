@@ -76,7 +76,12 @@ proc ensure_mig_dcp {project_dir} {
     puts "Prepared MIG checkpoint: $src_dcp"
 }
 
-set prj_path [get_prj_path]
+set prj_candidates [glob -nocomplain [file join $current_prj_path "*.xpr"]]
+if {[llength $prj_candidates] > 0} {
+    set prj_path [lindex $prj_candidates 0]
+} else {
+    set prj_path [get_prj_path]
+}
 open_project $prj_path
 ensure_mig_dcp $current_prj_path
 puts "step 1:pre_patch_check"
