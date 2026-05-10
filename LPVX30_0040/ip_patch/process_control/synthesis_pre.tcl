@@ -8,6 +8,8 @@ proc ensure_mig_dcp {project_dir} {
     set ip_name "mig_7series_0"
     set src_dcp [file join $project_dir "LPVX30_0040.srcs" "sources_1" "ip" $ip_name "${ip_name}.dcp"]
     set run_dcp [file join $project_dir "LPVX30_0040.runs" "${ip_name}_synth_1" "${ip_name}.dcp"]
+    set mig_rtl [file join $project_dir "LPVX30_0040.srcs" "sources_1" "ip" $ip_name $ip_name "user_design" "rtl" "${ip_name}.v"]
+    set mig_axi_rtl [file join $project_dir "LPVX30_0040.srcs" "sources_1" "ip" $ip_name $ip_name "user_design" "rtl" "axi" "mig_7series_v4_2_axi_ctrl_addr_decode.v"]
 
     if {[file exists $src_dcp]} {
         return
@@ -19,10 +21,20 @@ proc ensure_mig_dcp {project_dir} {
             error "Required IP '$ip_name' was not found while preparing $src_dcp"
         }
 
-        puts "MIG checkpoint is missing. Launching ${ip_name}_synth_1 to generate it."
-        catch {generate_target synthesis $ip_obj} gen_msg
+        puts "MIG checkpoint is missing. Regenerating output products for $ip_name."
+        catch {reset_target all $ip_obj} reset_msg
+        if {$reset_msg ne ""} {
+            puts "reset_target all $ip_name: $reset_msg"
+        }
+        if {[catch {generate_target all $ip_obj} gen_msg]} {
+            error "Failed to generate output products for $ip_name: $gen_msg"
+        }
         if {$gen_msg ne ""} {
-            puts "generate_target synthesis $ip_name: $gen_msg"
+            puts "generate_target all $ip_name: $gen_msg"
+        }
+
+        if {![file exists $mig_rtl] || ![file exists $mig_axi_rtl]} {
+            error "MIG output products are still missing after regeneration. Missing example files: $mig_rtl or $mig_axi_rtl"
         }
 
         if {[llength [get_runs -quiet ${ip_name}_synth_1]] == 0} {
@@ -39,9 +51,8 @@ proc ensure_mig_dcp {project_dir} {
 
         set run_status [get_property STATUS $ip_run]
         if {![string match "*Complete*" $run_status]} {
-            if {[string match "*Error*" $run_status] || [string match "*Out-of-date*" $run_status]} {
-                catch {reset_run ${ip_name}_synth_1}
-            }
+            catch {reset_run ${ip_name}_synth_1}
+            puts "Launching ${ip_name}_synth_1 to generate MIG checkpoint."
             launch_runs ${ip_name}_synth_1 -jobs 8
             wait_on_run ${ip_name}_synth_1
             set run_status [get_property STATUS [get_runs ${ip_name}_synth_1]]
