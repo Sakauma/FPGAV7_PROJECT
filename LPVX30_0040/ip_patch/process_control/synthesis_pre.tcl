@@ -1,5 +1,9 @@
-set parent [get_property parent.project_path [current_project] -quiet]
-set current_prj_path [file dirname $parent]
+set current_prj_path [get_property DIRECTORY [current_project] -quiet]
+if {$current_prj_path eq ""} {
+    set parent [get_property parent.project_path [current_project] -quiet]
+    set current_prj_path [file dirname $parent]
+}
+set current_prj_path [file normalize $current_prj_path]
 set ::env(JFM_PATH) $current_prj_path
 set run_tcl_path [file join $::env(JFM_PATH) "ip_patch" "run.tcl"]
 source $run_tcl_path
