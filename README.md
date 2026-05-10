@@ -46,6 +46,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 ```
 
 首次打开时，如果 Vivado 提示重新生成 IP output products，按提示生成即可。
+`synth_1` 的前置脚本会在缺少 MIG checkpoint 时自动运行 `mig_7series_0_synth_1`，首次综合会比后续综合更久。
 
 ## 当前验证状态
 

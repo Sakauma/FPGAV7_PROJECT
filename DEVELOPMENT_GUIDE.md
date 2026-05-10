@@ -16,6 +16,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 ```
 
 首次克隆后建议先打开工程，检查 IP Status；如 Vivado 提示重新生成 output products，按提示生成即可，不要提交 `.runs`、`.cache`、`.sim`、`.hw`、日志、波形数据库和 DCP 等生成物。
+综合前置脚本会在缺少 `mig_7series_0.dcp` 时自动运行 `mig_7series_0_synth_1` 并准备 MIG checkpoint，因此首次综合耗时会更长。
 
 ## 目录导读
 - `HDL/VX30_0040_TOP.V`：顶层模块 `LTVX30_0040_TOP`。
