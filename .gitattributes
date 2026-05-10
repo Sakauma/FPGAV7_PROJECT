@@ -2,6 +2,7 @@
 .gitattributes text eol=lf
 
 # HDL and Vivado project text files
+*.md text eol=lf
 *.v text eol=lf
 *.V text eol=lf
 *.vh text eol=lf
@@ -26,6 +27,7 @@
 # Vivado/IP binary containers and checkpoints
 *.xcix binary
 *.dcp binary
+*.bak -text
 
 # Preserve Vivado-generated legacy IP files byte-for-byte. Some generated
 # files contain CRLF/GBK text and appear modified after checkout if normalized.
