@@ -82,7 +82,12 @@ if {[llength $prj_candidates] > 0} {
 } else {
     set prj_path [get_prj_path]
 }
-open_project $prj_path
+if {[catch {open_project $prj_path} open_msg]} {
+    if {[string first "already open" $open_msg] < 0} {
+        error $open_msg
+    }
+    puts "Project is already open: $prj_path"
+}
 ensure_mig_dcp $current_prj_path
 puts "step 1:pre_patch_check"
 pre_patch_check
