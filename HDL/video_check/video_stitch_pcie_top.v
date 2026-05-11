@@ -13,7 +13,9 @@ module video_stitch_pcie_top #(
 	parameter		FRAME_HEIGHT				= 1080,
 	parameter		OVERLAP_WIDTH				= 1920,
 	parameter		RAW10_SHIFT					= 6,
-	parameter		DUP_SRIO0_ENABLE			= 1
+	parameter		DUP_SRIO0_ENABLE			= 1,
+	parameter		TEST_PATTERN_ENABLE			= 1,
+	parameter		TEST_PACKET_BYTES			= 4096
 )(
 	input										srio0_tvalid,
 	output										srio0_tready,
@@ -67,6 +69,45 @@ module video_stitch_pcie_top #(
 	wire	[31:0]								rx_ocm_cnt;
 	wire	[31:0]								rx_4k_cnt;
 	wire	[31:0]								rx_dat_cnt;
+	wire										classifier_srio_tvalid;
+	wire										classifier_srio_tready;
+	wire										classifier_srio_tlast;
+	wire	[63:0]								classifier_srio_tdata;
+	wire	[7:0]								classifier_srio_tkeep;
+	wire	[31:0]								classifier_srio_tuser;
+	wire										pattern_tvalid;
+	wire										pattern_tready;
+	wire										pattern_tlast;
+	wire	[63:0]								pattern_tdata;
+	wire	[7:0]								pattern_tkeep;
+	wire	[31:0]								pattern_tuser;
+
+	assign classifier_srio_tvalid = TEST_PATTERN_ENABLE ? pattern_tvalid : srio0_tvalid;
+	assign classifier_srio_tlast  = TEST_PATTERN_ENABLE ? pattern_tlast  : srio0_tlast;
+	assign classifier_srio_tdata  = TEST_PATTERN_ENABLE ? pattern_tdata  : srio0_tdata;
+	assign classifier_srio_tkeep  = TEST_PATTERN_ENABLE ? pattern_tkeep  : srio0_tkeep;
+	assign classifier_srio_tuser  = TEST_PATTERN_ENABLE ? pattern_tuser  : srio0_tuser;
+	assign pattern_tready         = TEST_PATTERN_ENABLE ? classifier_srio_tready : 1'b0;
+	assign srio0_tready           = TEST_PATTERN_ENABLE ? 1'b1 : classifier_srio_tready;
+
+	video_srio_pattern_src #(
+		.DW									(64),
+		.TARGET_SRC_ID						(TARGET_SRC_ID),
+		.FRAME_WIDTH						(FRAME_WIDTH),
+		.FRAME_HEIGHT						(FRAME_HEIGHT),
+		.PACKET_BYTES						(TEST_PACKET_BYTES),
+		.RAW10_SHIFT						(RAW10_SHIFT),
+		.FRAME_GAP_CYCLES					(1024)
+	) u_video_srio_pattern_src (
+		.m_axis_tvalid						(pattern_tvalid),
+		.m_axis_tready						(pattern_tready),
+		.m_axis_tlast						(pattern_tlast),
+		.m_axis_tdata						(pattern_tdata),
+		.m_axis_tkeep						(pattern_tkeep),
+		.m_axis_tuser						(pattern_tuser),
+		.clk								(clk),
+		.rst_n								(rst_n)
+	);
 
 	srio_data_classifier #(
 		.SIM								(SIM),
@@ -76,12 +117,12 @@ module video_stitch_pcie_top #(
 		.USER_WIDTH							(32),
 		.KEEP_WIDTH							(8)
 	) u_srio_data_classifier (
-		.srio_tvalid						(srio0_tvalid),
-		.srio_tready						(srio0_tready),
-		.srio_tlast							(srio0_tlast),
-		.srio_tdata							(srio0_tdata),
-		.srio_tkeep							(srio0_tkeep),
-		.srio_tuser							(srio0_tuser),
+		.srio_tvalid						(classifier_srio_tvalid),
+		.srio_tready						(classifier_srio_tready),
+		.srio_tlast							(classifier_srio_tlast),
+		.srio_tdata							(classifier_srio_tdata),
+		.srio_tkeep							(classifier_srio_tkeep),
+		.srio_tuser							(classifier_srio_tuser),
 
 		.target_tvalid						(target_tvalid),
 		.target_tready						(target_tready),

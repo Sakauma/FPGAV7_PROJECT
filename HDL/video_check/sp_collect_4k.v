@@ -128,6 +128,13 @@ module sp_collect_4k	#(
     	reg						pkg_reading;
 		reg						pkg_reading_q0;
 		reg						pkg_reading_q1;
+		reg						pkg_reading_last_q0;
+		reg						pkg_reading_last_q1;
+		reg		[15:0]			write_word_count;
+		reg		[15:0]			read_word_count;
+		wire	[15:0]			write_word_count_next;
+		wire					packet_done;
+		wire					read_issue_last;
 		
     	
 //==================================================================================================
@@ -162,12 +169,10 @@ module sp_collect_4k	#(
 			end	
 		end
 		DAT_WRITE	:	begin
-			if( trvl_q && ram_addra >= RIO_SYN_ADDR[12:3] )	begin
+			if( trvl_q )	begin
 				ns								=	PKG_FINSH								;
-			end else if (  trvl_q  ) begin 
-				ns								= 	IDLE	            					;
-			end else begin 
-				ns								=	DAT_WRITE								;	
+			end else begin
+				ns								=	DAT_WRITE								;
 			end
 		end
 		OCM_DISCA	:	begin
@@ -178,7 +183,7 @@ module sp_collect_4k	#(
 			end
 		end
 		PKG_FINSH	:	begin
-			 if(ram_addrb >= SR_PKG_BNUM[11:3] )begin
+			 if((~pkg_reading) && (~pkg_reading_q0) && (~pkg_reading_q1) )begin
 			 	ns								= IDLE										;
 			 end else begin 
 			 	ns								= PKG_FINSH									;
@@ -274,24 +279,40 @@ module sp_collect_4k	#(
   	 	ram_addra				<= ram_addra+1'b1 				;
   	 end
    end           
-   
+
+   assign write_word_count_next = write_word_count + {15'd0, ram_wena};
+   assign packet_done = trvl_q && (write_word_count_next != 16'd0);
+   assign read_issue_last = pkg_reading && ((ram_addrb + 1'b1) >= read_word_count);
+
    always @( posedge clk ) begin 
    		if (~ rst_n )begin 
    			pkg_reading           <= 1'b0			;
-   		end else if ( ns == PKG_FINSH) begin 
+		end else if ( packet_done ) begin
    			pkg_reading			  <= 1'b1			;
-   		end else if ( ram_addrb>= RIO_SYN_ADDR[12:3] || rio_treq_fifo_af)begin //可能存在少读�???个数据的风险�???
+		end else if ( read_issue_last || rio_treq_fifo_af)begin
     	    pkg_reading     	  <= 1'b0			;
     	end else begin 
     		pkg_reading			  <= pkg_reading	;
 		end
    end
    always @(posedge clk ) begin
-		pkg_reading_q0			  <= pkg_reading	;
+		if (~rst_n) begin
+			pkg_reading_q0		  <= 1'b0;
+			pkg_reading_last_q0	  <= 1'b0;
+		end else begin
+			pkg_reading_q0		  <= pkg_reading	;
+			pkg_reading_last_q0	  <= read_issue_last;
+		end
    end
    //RAM data have  2 clock delay
    always @(posedge clk ) begin
-		pkg_reading_q1			  <= pkg_reading_q0	;
+		if (~rst_n) begin
+			pkg_reading_q1		  <= 1'b0;
+			pkg_reading_last_q1	  <= 1'b0;
+		end else begin
+			pkg_reading_q1		  <= pkg_reading_q0	;
+			pkg_reading_last_q1	  <= pkg_reading_last_q0;
+		end
    end
 
    always@ (posedge clk ) begin 
@@ -306,9 +327,27 @@ module sp_collect_4k	#(
 	assign	rio_treq_fifo_wr         =pkg_reading_q1;//RAM data have  2 clock delay
 	assign	rio_treq_fifo_di		 =ram_rdata	;
 	
-	assign	rio_treq_info_wr 		=	ram_addra>= RIO_SYN_ADDR[12:3] && trvl_q? 1'b1:1'b0;
-	assign	rio_treq_info_di		= 	{video_cnt,video_row_loc,16'd8192} ;
-    assign	rio_treq_fifo_wl        =	ram_addrb>= RIO_SYN_ADDR? 1'b1:1'b0;   
+	assign	rio_treq_info_wr 		=	packet_done;
+	assign	rio_treq_info_di		= 	{video_cnt,video_row_loc,{write_word_count_next[12:0],3'b000}} ;
+    assign	rio_treq_fifo_wl        =	pkg_reading_last_q1;
+
+	always @(posedge clk) begin
+		if (~rst_n) begin
+			write_word_count		<= 16'd0;
+		end else if (ns == ADR_CHECK) begin
+			write_word_count		<= 16'd0;
+		end else if (ram_wena) begin
+			write_word_count		<= write_word_count + 1'b1;
+		end
+	end
+
+	always @(posedge clk) begin
+		if (~rst_n) begin
+			read_word_count			<= 16'd0;
+		end else if (packet_done) begin
+			read_word_count			<= write_word_count_next;
+		end
+	end
 
 sr_dat_ram dat_4k (
   .clka	(			clk				),    // input wire clka

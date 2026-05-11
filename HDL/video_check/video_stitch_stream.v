@@ -53,10 +53,10 @@ module video_stitch_stream #(
 		end
 	endfunction
 
-	function [15:0] f_ceil_div32;
+	function [15:0] f_ceil_div4;
 		input [15:0] byte_count;
 		begin
-			f_ceil_div32 = {5'b0, byte_count[15:5]} + (|byte_count[4:0]);
+			f_ceil_div4 = {2'b0, byte_count[15:2]} + (|byte_count[1:0]);
 		end
 	endfunction
 
@@ -65,7 +65,7 @@ module video_stitch_stream #(
 
 	reg		[1:0]								cs;
 	reg		[15:0]								active_bytes;
-	reg		[15:0]								active_pcie_words;
+	reg		[15:0]								active_dwords;
 	reg		[15:0]								bytes_left;
 
 	wire										info_rd;
@@ -106,7 +106,7 @@ module video_stitch_stream #(
 	assign m_axis_tvalid = (cs == ST_SEND) && (~fifo_em);
 	assign packet_last   = (bytes_left <= 16'd8);
 	assign m_axis_tlast  = (cs == ST_SEND) && packet_last;
-	assign m_axis_tuser  = {32'd0, active_bytes, active_pcie_words};
+	assign m_axis_tuser  = {48'd0, active_dwords};
 	assign trv           = m_axis_tvalid && m_axis_tready;
 	assign fifo_rd       = trv;
 	assign info_rd       = (cs == ST_IDLE) && (~info_em);
@@ -115,7 +115,7 @@ module video_stitch_stream #(
 		if (~rst_n) begin
 			cs						<= ST_IDLE;
 			active_bytes			<= 16'd0;
-			active_pcie_words		<= 16'd0;
+			active_dwords			<= 16'd0;
 			bytes_left				<= 16'd0;
 			feature_match_count		<= 32'd0;
 			stitch_dx				<= 16'sd0;
@@ -136,7 +136,7 @@ module video_stitch_stream #(
 				if (info_rd) begin
 					cs				<= ST_SEND;
 					active_bytes	<= info_do[15:0];
-					active_pcie_words <= f_ceil_div32(info_do[15:0]);
+					active_dwords	<= f_ceil_div4(info_do[15:0]);
 					bytes_left		<= info_do[15:0];
 					feature_match_count <= 32'd0;
 				end

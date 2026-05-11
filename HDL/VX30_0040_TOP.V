@@ -60,7 +60,8 @@
 	parameter		VIDEO_FRAME_HEIGHT		= 	1080									,
 	parameter		VIDEO_OVERLAP_WIDTH		= 	1920									,
 	parameter		VIDEO_RAW10_SHIFT		= 	6										,
-	parameter		VIDEO_DUP_SRIO0_ENABLE	= 	1
+	parameter		VIDEO_DUP_SRIO0_ENABLE	= 	1									,
+	parameter		VIDEO_TEST_PATTERN_ENABLE = 	1
 )(
 //==================================================================================================
 //--Port Defines
@@ -1235,7 +1236,8 @@ video_stitch_pcie_top #(
 	.	FRAME_HEIGHT						( 	VIDEO_FRAME_HEIGHT		),
 	.	OVERLAP_WIDTH						( 	VIDEO_OVERLAP_WIDTH	),
 	.	RAW10_SHIFT							( 	VIDEO_RAW10_SHIFT		),
-	.	DUP_SRIO0_ENABLE					( 	VIDEO_DUP_SRIO0_ENABLE	)
+	.	DUP_SRIO0_ENABLE					( 	VIDEO_DUP_SRIO0_ENABLE	),
+	.	TEST_PATTERN_ENABLE				( 	VIDEO_TEST_PATTERN_ENABLE )
 ) u_video_stitch_pcie_top (
 	.srio0_tvalid							( 	srio_sprx_tvalid		[0* 1+: 1]	),
 	.srio0_tready							( 	video_srio0_tready				),
