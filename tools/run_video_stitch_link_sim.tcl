@@ -12,6 +12,5 @@ set_property -name {xsim.simulate.runtime} -value {3000us} -objects [get_fileset
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
 launch_simulation -mode behavioral
-run all
 close_sim
 close_project

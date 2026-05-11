@@ -132,6 +132,7 @@ module sp_collect_4k	#(
 		reg						pkg_reading_last_q1;
 		reg		[15:0]			write_word_count;
 		reg		[15:0]			read_word_count;
+		reg						packet_done_q;
 		wire	[15:0]			write_word_count_next;
 		wire					packet_done;
 		wire					read_issue_last;
@@ -183,7 +184,7 @@ module sp_collect_4k	#(
 			end
 		end
 		PKG_FINSH	:	begin
-			 if((~pkg_reading) && (~pkg_reading_q0) && (~pkg_reading_q1) )begin
+			 if((~packet_done_q) && (~pkg_reading) && (~pkg_reading_q0) && (~pkg_reading_q1) )begin
 			 	ns								= IDLE										;
 			 end else begin 
 			 	ns								= PKG_FINSH									;
@@ -287,7 +288,7 @@ module sp_collect_4k	#(
    always @( posedge clk ) begin 
    		if (~ rst_n )begin 
    			pkg_reading           <= 1'b0			;
-		end else if ( packet_done ) begin
+		end else if ( packet_done_q ) begin
    			pkg_reading			  <= 1'b1			;
 		end else if ( read_issue_last || rio_treq_fifo_af)begin
     	    pkg_reading     	  <= 1'b0			;
@@ -346,6 +347,14 @@ module sp_collect_4k	#(
 			read_word_count			<= 16'd0;
 		end else if (packet_done) begin
 			read_word_count			<= write_word_count_next;
+		end
+	end
+
+	always @(posedge clk) begin
+		if (~rst_n) begin
+			packet_done_q			<= 1'b0;
+		end else begin
+			packet_done_q			<= packet_done;
 		end
 	end
 
