@@ -26,6 +26,8 @@ LPVX30_0040/LPVX30_0040.ip_user_files/
 *.str
 *.dmp
 *.backup.*
+*.sim_backup
+dfx_runtime.txt
 webtalk*
 
 # Vivado generated IP products
