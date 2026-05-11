@@ -28,6 +28,49 @@ proc resolve_project_dir {} {
     error "Unable to resolve Vivado project directory from current project context"
 }
 
+proc ensure_xilinx_local_user_data {} {
+    set current ""
+    if {[info exists ::env(XILINX_LOCAL_USER_DATA)]} {
+        set current $::env(XILINX_LOCAL_USER_DATA)
+    }
+
+    if {$current ne "" && [string first " " $current] < 0} {
+        if {[catch {file mkdir $current} mkdir_msg]} {
+            puts "WARNING: unable to create XILINX_LOCAL_USER_DATA '$current': $mkdir_msg"
+        } else {
+            puts "Using XILINX_LOCAL_USER_DATA=$current"
+            return
+        }
+    }
+
+    set candidates {}
+    if {[info exists ::env(SystemDrive)] && $::env(SystemDrive) ne ""} {
+        set system_drive [string trimright $::env(SystemDrive) "\\/"]
+        lappend candidates "${system_drive}/XilinxLocalUserData"
+    }
+    foreach volume [file volumes] {
+        lappend candidates [file join $volume XilinxLocalUserData]
+    }
+
+    foreach candidate $candidates {
+        set candidate [file normalize $candidate]
+        if {[string first " " $candidate] >= 0} {
+            continue
+        }
+        if {[catch {file mkdir $candidate} mkdir_msg]} {
+            puts "WARNING: unable to create XILINX_LOCAL_USER_DATA '$candidate': $mkdir_msg"
+            continue
+        }
+        set ::env(XILINX_LOCAL_USER_DATA) [file nativename $candidate]
+        puts "Set XILINX_LOCAL_USER_DATA=$::env(XILINX_LOCAL_USER_DATA)"
+        return
+    }
+
+    puts "WARNING: XILINX_LOCAL_USER_DATA was not set; Vivado OOC runs may emit Common 17-1257."
+}
+
+ensure_xilinx_local_user_data
+
 set current_prj_path [resolve_project_dir]
 set current_prj_path [file normalize $current_prj_path]
 set ::env(JFM_PATH) $current_prj_path

@@ -24,12 +24,27 @@ D:\AMD\2025.2\Vivado\bin\vivado.bat
 
 其他机器可按实际安装路径替换 Vivado 可执行文件位置。
 
+首次使用建议先运行一次：
+
+```powershell
+tools\setup_vivado_user_data.bat
+```
+
+该命令会把 `XILINX_LOCAL_USER_DATA` 持久设置到无空格路径，避免 OOC IP 综合时出现 `[Common 17-1257] Failed to create directory 'C'`。运行后请关闭并重新打开 Vivado。
+
 ## 快速开始
 
 克隆仓库后，打开 Vivado 工程：
 
 ```powershell
-vivado LPVX30_0040\LPVX30_0040.xpr
+tools\open_vivado_2025.bat
+```
+
+该脚本也会在当前会话中设置 `XILINX_LOCAL_USER_DATA`。如果 Vivado 不在默认路径，请先设置：
+
+```powershell
+$env:VIVADO_2025_BAT="D:\AMD\2025.2\Vivado\bin\vivado.bat"
+tools\open_vivado_2025.bat
 ```
 
 在 Vivado Tcl Console 中更新编译顺序并运行综合：
@@ -47,6 +62,7 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 
 首次打开时，如果 Vivado 提示重新生成 IP output products，按提示生成即可。
 `synth_1` 的前置脚本会在缺少 MIG/PCIe/SRIO output products 或 checkpoint 时自动重新生成相关 IP，并运行对应 OOC 综合准备 DCP，首次综合会比后续综合更久。
+如果已经直接打开了 Vivado，也可以先在 Tcl Console 中执行 `source tools/setup_vivado_user_data.tcl`，再启动综合。
 
 ## 当前验证状态
 

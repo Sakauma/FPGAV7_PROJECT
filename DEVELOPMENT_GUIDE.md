@@ -4,8 +4,10 @@
 本工程目标器件为 `xc7vx690tffg1761-2`，原工程来自 Vivado 2018.3，当前发布版本已在 Vivado 2025.2 下完成 IP 升级检查，并通过 `synth_1` 项目模式综合冒烟测试。Windows 环境可直接使用：
 
 ```powershell
-D:\AMD\2025.2\Vivado\bin\vivado.bat LPVX30_0040\LPVX30_0040.xpr
+tools\open_vivado_2025.bat
 ```
+
+首次使用建议先运行 `tools\setup_vivado_user_data.bat`，它会持久设置 `XILINX_LOCAL_USER_DATA`。该设置用于避免 `srio_gen2_5g_2x_8b_synth_1`、`ila_576X1024_synth_1` 等 OOC IP run 报 `[Common 17-1257] Failed to create directory 'C'`。如果已经手动打开 Vivado，请先在 Tcl Console 执行 `source tools/setup_vivado_user_data.tcl`，再启动综合。
 
 在 Vivado Tcl Console 中常用流程：
 
