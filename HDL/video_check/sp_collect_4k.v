@@ -366,7 +366,7 @@ sr_dat_ram dat_4k (
   .dina	(			ram_wdata		),    // input wire [63 : 0] dina
   .douta(			 				),  // output wire [63 : 0] douta
   .clkb	(			clk				),    // input wire clkb
-  .enb	(			1'b1			),      // input wire enb
+  .enb	(			pkg_reading		),      // input wire enb
   .web	(			1'b0			),      // input wire [0 : 0] web
   .addrb(			ram_addrb		),  // input wire [3 : 0] addrb
   .dinb	(			32'h0 			),    // input wire [63 : 0] dinb
