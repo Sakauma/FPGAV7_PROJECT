@@ -29,19 +29,19 @@ module TenG_ETH_TOP	#(
 	parameter       P_TARGET_MAC  = 48'h0a_0b_0c_0d_0e_0f                
 	)(
 //---selfdefine Interface-----------------------
-	wire [63:0]     wm_axis_user_data   ,
-	wire [31:0]     wm_axis_user_user   ,
-	wire [7 :0]     wm_axis_user_keep   ,
-	wire            wm_axis_user_last   ,
-	wire            wm_axis_user_valid  ,
-	wire            wm_axis_user_ready  ,
+	input  wire [63:0]     wm_axis_user_data   ,
+	input  wire [31:0]     wm_axis_user_user   ,
+	input  wire [7 :0]     wm_axis_user_keep   ,
+	input  wire            wm_axis_user_last   ,
+	input  wire            wm_axis_user_valid  ,
+	output wire            wm_axis_user_ready  ,
 	
-	wire [63:0]     ws_axis_user_data   ,
-	wire [31:0]     ws_axis_user_user   ,
-	wire [7 :0]     ws_axis_user_keep   ,
-	wire            ws_axis_user_last   ,
-	wire            ws_axis_user_valid  ,																		 
-	wire            ws_axis_user_ready  ,																		 
+	output wire [63:0]     ws_axis_user_data   ,
+	output wire [31:0]     ws_axis_user_user   ,
+	output wire [7 :0]     ws_axis_user_keep   ,
+	output wire            ws_axis_user_last   ,
+	output wire            ws_axis_user_valid  ,
+	input  wire            ws_axis_user_ready  ,
 
 //---Common Interface---------------------------
  	input       i_gt_clk_p          ,
