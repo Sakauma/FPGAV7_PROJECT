@@ -539,6 +539,7 @@
 	wire		[31:0]								video_replay_frame_count					;
 	wire		[31:0]								video_replay_packet_count				;
 	wire		[31:0]								video_replay_bad_header_count		;
+	wire												video_stream_clk							;
 
 `ifdef	ENABLE_SIM_ONLY
 		assign			srio_bmrx_tready	=	{{P_Srio_CH_NUM_R* 1}	{1'b1}}				;
@@ -692,6 +693,7 @@
 	wire	fst_rst	;
 	wire	clk_locked					;
 	assign	fst_rst	=	~	clk_locked	;
+	assign	video_stream_clk	=	(VIDEO_SOURCE_MODE == 0) ? sp_log_clk[0] : fst_clk	;
 
 	localparam		TOT_LANE_SPEED	=	P_Srio_CH_LANE_R*P_Srio_SPEED_R	;
 
@@ -1269,7 +1271,7 @@ video_dma_srio_replay_src #(
 	.payload_packet_count			( 	video_replay_packet_count	),
 	.bad_header_count				( 	video_replay_bad_header_count	),
 
-	.clk								( 	sp_log_clk			[0]	),
+	.clk								( 	video_stream_clk			),
 	.rst_n								( 	~sys_rst				)
 );
 
@@ -1320,7 +1322,7 @@ video_stitch_pcie_top #(
 	.stitch_confidence					( 	video_stitch_confidence		),
 	.drop_count							( 	video_drop_count				),
 
-	.clk									( 	sp_log_clk			[0]		),
+	.clk									( 	video_stream_clk				),
 	.rst_n									( 	~sys_rst					)
 );
 
@@ -1339,7 +1341,7 @@ axis_convert_top #(
 	.axsr_tdest						( 	4'd0									),
 	.axsr_tid							( 	4'd0									),
 	.i_rst								( 	sys_rst								),
-	.i_clk								( 	sp_log_clk			[0]				),
+	.i_clk								( 	video_stream_clk				),
 	.axst_tvalid						( 	dma_s_axis_tvalid	[VIDEO_DMA_CH*1+:1]	),
 	.axst_tready						( 	dma_s_axis_tready	[VIDEO_DMA_CH*1+:1]	),
 	.axst_tlast						( 	dma_s_axis_tlast	[VIDEO_DMA_CH*1+:1]	),
@@ -1788,7 +1790,7 @@ generate for(i=0;i<P_Srio_CH_NUM_R;i=i+1) begin:i_SP_G
 		.	axst_tdest			( 													)			,
 		.	axst_tid			( 													)			,
 		.	o_rst				( 	sys_rst										)			,
-		.	o_clk				( 	sp_log_clk[0]								)
+		.	o_clk				( 	video_stream_clk								)
 	);
 		assign dma_rio_tx_tvalid[i*1+:1] = 1'b0;
 		assign dma_rio_tx_tlast [i*1+:1] = 1'b0;
