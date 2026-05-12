@@ -63,6 +63,7 @@
 	parameter		VIDEO_OVERLAP_WIDTH		= 	2048									,
 	parameter		VIDEO_RAW10_SHIFT		= 	6										,
 	parameter		VIDEO_DUP_SRIO0_ENABLE	= 	1									,
+	parameter		VIDEO_PACKET_BYTES		= 	4096								,
 	parameter		VIDEO_TEST_PATTERN_ENABLE = 	(VIDEO_SOURCE_MODE == 1)
 )(
 //==================================================================================================
@@ -519,6 +520,12 @@
 	wire		[63:0]								video_axis_tdata									;
 	wire		[7:0]									video_axis_tkeep									;
 	wire		[63:0]							video_axis_tuser									;
+	wire												video_pkt_tvalid								;
+	wire												video_pkt_tready								;
+	wire												video_pkt_tlast									;
+	wire		[63:0]							video_pkt_tdata									;
+	wire		[7:0]								video_pkt_tkeep									;
+	wire		[63:0]							video_pkt_tuser									;
 	wire		[31:0]							video_feature_match_count					;
 	wire signed	[15:0]						video_stitch_dx								;
 	wire signed	[15:0]						video_stitch_dy								;
@@ -1326,18 +1333,40 @@ video_stitch_pcie_top #(
 	.rst_n									( 	~sys_rst					)
 );
 
+video_axis_packetizer #(
+	.	DW									( 	64						),
+	.	FRAME_BYTES						( 	VIDEO_FRAME_WIDTH*VIDEO_FRAME_HEIGHT*2	),
+	.	PACKET_BYTES					( 	VIDEO_PACKET_BYTES		)
+) u_video_axis_packetizer (
+	.s_axis_tvalid					( 	video_axis_tvalid			),
+	.s_axis_tready					( 	video_axis_tready			),
+	.s_axis_tlast					( 	video_axis_tlast			),
+	.s_axis_tdata					( 	video_axis_tdata			),
+	.s_axis_tkeep					( 	video_axis_tkeep			),
+	.s_axis_tuser					( 	video_axis_tuser			),
+
+	.m_axis_tvalid					( 	video_pkt_tvalid			),
+	.m_axis_tready					( 	video_pkt_tready			),
+	.m_axis_tlast					( 	video_pkt_tlast			),
+	.m_axis_tdata					( 	video_pkt_tdata			),
+	.m_axis_tkeep					( 	video_pkt_tkeep			),
+	.m_axis_tuser					( 	video_pkt_tuser			),
+
+	.clk								( 	video_stream_clk		),
+	.rst_n							( 	~sys_rst				)
+);
 axis_convert_top #(
 	.	LOOP_NUM							( 	VIDEO_DMA_CH			),
 	.	DW										( 	64						),
 	.	QW										( 	PCIE_DW				)
 ) u_video_pcie_convert (
-	.axsr_tvalid						( 	video_axis_tvalid							),
-	.axsr_tready						( 	video_axis_tready							),
-	.axsr_tlast						( 	video_axis_tlast							),
-	.axsr_tdata						( 	video_axis_tdata							),
-	.axsr_tuser						( 	video_axis_tuser							),
-	.axsr_tkeep						( 	video_axis_tkeep							),
-	.axsr_tstrb						( 	video_axis_tkeep							),
+	.axsr_tvalid						( 	video_pkt_tvalid							),
+	.axsr_tready						( 	video_pkt_tready							),
+	.axsr_tlast						( 	video_pkt_tlast							),
+	.axsr_tdata						( 	video_pkt_tdata							),
+	.axsr_tuser						( 	video_pkt_tuser							),
+	.axsr_tkeep						( 	video_pkt_tkeep							),
+	.axsr_tstrb						( 	video_pkt_tkeep							),
 	.axsr_tdest						( 	4'd0									),
 	.axsr_tid							( 	4'd0									),
 	.i_rst								( 	sys_rst								),

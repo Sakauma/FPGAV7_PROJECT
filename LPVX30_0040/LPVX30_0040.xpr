@@ -744,6 +744,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../HDL/video_check/video_axis_packetizer.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../HDL/video_check/video_dma_srio_replay_src.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -1990,7 +1997,7 @@
     <MsgAttr Name="Id" Val="IP_Flow 19-2162"/>
     <MsgAttr Name="Severity" Val="WARNING"/>
     <MsgAttr Name="ShowRule" Val="1"/>
-    <MsgAttr Name="RuleSource" Val="4"/>
+    <MsgAttr Name="RuleSource" Val="2"/>
     <MsgAttr Name="StringIsRegExp" Val="0"/>
     <MsgAttr Name="RuleId" Val="1"/>
     <MsgAttr Name="Note" Val=""/>
