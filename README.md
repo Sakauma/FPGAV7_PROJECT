@@ -1,5 +1,7 @@
 # FPGAV7_PROJECT
 
+上板联调步骤见 `BOARD_BRINGUP_GUIDE.md`，包含 Vivado 生成、JTAG 烧录、RK3588 SSH 编译运行和 PCIe 编码验证流程。
+
 这是一个面向 Xilinx Virtex-7 `xc7vx690tffg1761-2` 的 Vivado FPGA 工程。原工程来自 Vivado 2018.3，当前仓库版本已升级并在 Vivado 2025.2 下完成综合验证。
 
 ## 工程内容
