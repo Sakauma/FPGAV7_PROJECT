@@ -32,6 +32,10 @@ module video_axis_packetizer #(
 	wire			axis_fire = s_axis_tvalid && s_axis_tready;
 	wire	[31:0]	next_packet_sent = packet_bytes_sent + BEAT_BYTES;
 	wire			packet_done = (next_packet_sent >= packet_bytes_cur) || s_axis_tlast;
+	wire	[31:0]	packet_bytes_done =
+						(s_axis_tlast && (next_packet_sent < packet_bytes_cur)) ?
+						next_packet_sent :
+						packet_bytes_cur;
 	wire	[31:0]	frame_bytes_after =
 						(s_axis_tlast || frame_bytes_left <= BEAT_BYTES) ?
 						FRAME_BYTES :
@@ -40,14 +44,14 @@ module video_axis_packetizer #(
 						(frame_bytes_after > PACKET_BYTES) ?
 						PACKET_BYTES :
 						frame_bytes_after;
-	wire	[15:0]	packet_dwords = packet_bytes_cur[17:2];
+	wire	[15:0]	packet_dwords = packet_bytes_done[17:2] + {15'd0, |packet_bytes_done[1:0]};
 
 	assign s_axis_tready = m_axis_tready;
 
 	assign m_axis_tvalid = s_axis_tvalid;
 	assign m_axis_tdata = s_axis_tdata;
 	assign m_axis_tkeep = s_axis_tkeep;
-	assign m_axis_tlast = packet_done;
+	assign m_axis_tlast = m_axis_tvalid && packet_done;
 	assign m_axis_tuser = {s_axis_tuser[63:16], packet_dwords};
 
 	always @(posedge clk) begin

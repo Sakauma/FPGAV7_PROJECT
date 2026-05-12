@@ -69,7 +69,7 @@ module video_dma_srio_replay_src #(
 
 	assign m_axis_tvalid = (cs == ST_PACKET_HEADER) ? 1'b1 :
 						   (cs == ST_PAYLOAD) ? s_axis_tvalid : 1'b0;
-	assign m_axis_tlast  = (cs == ST_PAYLOAD) ? s_axis_tlast : 1'b0;
+	assign m_axis_tlast  = (cs == ST_PAYLOAD) && s_axis_tvalid && s_axis_tlast;
 	assign m_axis_tdata  = (cs == ST_PACKET_HEADER) ? SRIO_PACKET_HEADER : s_axis_tdata;
 	assign m_axis_tkeep  = (cs == ST_PACKET_HEADER) ? {(DW/8){1'b1}} : s_axis_tkeep;
 	assign m_axis_tuser  = {TARGET_SRC_ID, 16'd0};

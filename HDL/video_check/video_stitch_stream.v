@@ -105,7 +105,7 @@ module video_stitch_stream #(
 	assign m_axis_tkeep  = {(DW/8){1'b1}};
 	assign m_axis_tvalid = (cs == ST_SEND) && (~fifo_em);
 	assign packet_last   = (bytes_left <= 16'd8);
-	assign m_axis_tlast  = (cs == ST_SEND) && packet_last;
+	assign m_axis_tlast  = m_axis_tvalid && packet_last;
 	assign m_axis_tuser  = {48'd0, active_dwords};
 	assign trv           = m_axis_tvalid && m_axis_tready;
 	assign fifo_rd       = trv;
