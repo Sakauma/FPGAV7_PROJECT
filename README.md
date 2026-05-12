@@ -1,6 +1,6 @@
 # FPGAV7_PROJECT
 
-上板联调步骤见 `BOARD_BRINGUP_GUIDE.md`，包含 Vivado 生成、JTAG 烧录、RK3588 SSH 编译运行和 PCIe 编码验证流程。
+上板联调步骤见 `docs/BOARD_BRINGUP_GUIDE.md`，包含 Vivado 生成、JTAG 烧录、RK3588 SSH 编译运行和 PCIe 编码验证流程。
 
 这是一个面向 Xilinx Virtex-7 `xc7vx690tffg1761-2` 的 Vivado FPGA 工程。原工程来自 Vivado 2018.3，当前仓库版本已升级并在 Vivado 2025.2 下完成综合验证。
 
@@ -12,7 +12,7 @@
 - Vivado 工程：`LPVX30_0040/LPVX30_0040.xpr`
 - 约束文件：`LPVX30_0040/LPVX30_0040.srcs/constrs_1/new`
 - 测试平台：`HDL/TB`
-- 开发指南：`DEVELOPMENT_GUIDE.md`
+- 开发指南：`docs/DEVELOPMENT_GUIDE.md`
 
 主要功能模块包括 10G Ethernet、PCIe DMA、SRIO/GT、DDR/MIG、SPI、AXI/AXI-Stream 相关数据通路和调试 IP。
 
@@ -99,4 +99,4 @@ launch_runs impl_1 -to_step write_bitstream -jobs 8
 
 本仓库已跟踪少量综合前置补丁依赖的 IP 产物，包括 MIG、PCIe 和 SRIO 的必要 DCP、RTL 与补丁备份文件。不要删除这些已跟踪文件；新增其他生成物前应确认它们是否为首次综合必需。
 
-更多工程结构、学习路线和参考开源仓库见 `DEVELOPMENT_GUIDE.md`。
+更多工程结构、学习路线和参考开源仓库见 `docs/DEVELOPMENT_GUIDE.md`。
