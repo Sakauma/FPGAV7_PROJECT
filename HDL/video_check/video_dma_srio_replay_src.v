@@ -67,7 +67,7 @@ module video_dma_srio_replay_src #(
 							(cs == ST_DISCARD)) ? 1'b1 :
 						   (cs == ST_PAYLOAD) ? m_axis_tready : 1'b0;
 
-	assign m_axis_tvalid = (cs == ST_PACKET_HEADER) ? s_axis_tvalid :
+	assign m_axis_tvalid = (cs == ST_PACKET_HEADER) ? 1'b1 :
 						   (cs == ST_PAYLOAD) ? s_axis_tvalid : 1'b0;
 	assign m_axis_tlast  = (cs == ST_PAYLOAD) ? s_axis_tlast : 1'b0;
 	assign m_axis_tdata  = (cs == ST_PACKET_HEADER) ? SRIO_PACKET_HEADER : s_axis_tdata;
