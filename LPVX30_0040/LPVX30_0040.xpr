@@ -756,6 +756,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PPRDIR/../HDL/video_check/video_dma_srio_replay_src.v">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../HDL/video_check/video_stitch_pcie_top.v">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>

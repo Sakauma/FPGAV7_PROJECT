@@ -56,12 +56,14 @@
 	parameter		PCIE_LW						=	4										,	//	PL_LINK_CAP_MAX_LINK_WIDTH
 	parameter		SRIO_DW						= 	64										,	//	SRIO AXIS DATA WIDTH
 	parameter		VIDEO_DMA_CH				= 	1										,
-	parameter		VIDEO_FRAME_WIDTH			= 	1920									,
-	parameter		VIDEO_FRAME_HEIGHT		= 	1080									,
-	parameter		VIDEO_OVERLAP_WIDTH		= 	1920									,
+	parameter		VIDEO_LOAD_DMA_CH		= 	0										,
+	parameter		VIDEO_SOURCE_MODE		= 	2										,
+	parameter		VIDEO_FRAME_WIDTH			= 	2048									,
+	parameter		VIDEO_FRAME_HEIGHT		= 	2048									,
+	parameter		VIDEO_OVERLAP_WIDTH		= 	2048									,
 	parameter		VIDEO_RAW10_SHIFT		= 	6										,
 	parameter		VIDEO_DUP_SRIO0_ENABLE	= 	1									,
-	parameter		VIDEO_TEST_PATTERN_ENABLE = 	1
+	parameter		VIDEO_TEST_PATTERN_ENABLE = 	(VIDEO_SOURCE_MODE == 1)
 )(
 //==================================================================================================
 //--Port Defines
@@ -522,6 +524,21 @@
 	wire signed	[15:0]						video_stitch_dy								;
 	wire		[15:0]							video_stitch_confidence					;
 	wire		[31:0]							video_drop_count								;
+	wire												video_load_tvalid								;
+	wire												video_load_tready								;
+	wire												video_load_tlast								;
+	wire		[63:0]								video_load_tdata								;
+	wire		[7:0]								video_load_tkeep								;
+	wire		[63:0]								video_load_tuser								;
+	wire												video_replay_tvalid							;
+	wire												video_replay_tready							;
+	wire												video_replay_tlast							;
+	wire		[63:0]								video_replay_tdata							;
+	wire		[7:0]								video_replay_tkeep							;
+	wire		[31:0]								video_replay_tuser							;
+	wire		[31:0]								video_replay_frame_count					;
+	wire		[31:0]								video_replay_packet_count				;
+	wire		[31:0]								video_replay_bad_header_count		;
 
 `ifdef	ENABLE_SIM_ONLY
 		assign			srio_bmrx_tready	=	{{P_Srio_CH_NUM_R* 1}	{1'b1}}				;
@@ -1227,6 +1244,35 @@ end	else	if(PARAM_ENABLE_GT==1) begin
 end
 end
 endgenerate
+
+video_dma_srio_replay_src #(
+	.	DW									( 	64						),
+	.	TARGET_SRC_ID						( 	16'h0000				),
+	.	FRAME_WIDTH						( 	VIDEO_FRAME_WIDTH		),
+	.	FRAME_HEIGHT						( 	VIDEO_FRAME_HEIGHT	)
+) u_video_dma_srio_replay_src (
+	.s_axis_tvalid						( 	video_load_tvalid		),
+	.s_axis_tready						( 	video_load_tready		),
+	.s_axis_tlast						( 	video_load_tlast		),
+	.s_axis_tdata						( 	video_load_tdata		),
+	.s_axis_tkeep						( 	video_load_tkeep		),
+	.s_axis_tuser						( 	video_load_tuser		),
+
+	.m_axis_tvalid						( 	video_replay_tvalid	),
+	.m_axis_tready						( 	video_replay_tready	),
+	.m_axis_tlast						( 	video_replay_tlast		),
+	.m_axis_tdata						( 	video_replay_tdata		),
+	.m_axis_tkeep						( 	video_replay_tkeep		),
+	.m_axis_tuser						( 	video_replay_tuser		),
+
+	.frame_count						( 	video_replay_frame_count		),
+	.payload_packet_count			( 	video_replay_packet_count	),
+	.bad_header_count				( 	video_replay_bad_header_count	),
+
+	.clk								( 	sp_log_clk			[0]	),
+	.rst_n								( 	~sys_rst				)
+);
+
 video_stitch_pcie_top #(
 	.	SIM										( 	0						),
 	.	BUS_DW									( 	64						),
@@ -1237,7 +1283,8 @@ video_stitch_pcie_top #(
 	.	OVERLAP_WIDTH						( 	VIDEO_OVERLAP_WIDTH	),
 	.	RAW10_SHIFT							( 	VIDEO_RAW10_SHIFT		),
 	.	DUP_SRIO0_ENABLE					( 	VIDEO_DUP_SRIO0_ENABLE	),
-	.	TEST_PATTERN_ENABLE				( 	VIDEO_TEST_PATTERN_ENABLE )
+	.	TEST_PATTERN_ENABLE				( 	VIDEO_TEST_PATTERN_ENABLE ),
+	.	SOURCE_MODE						( 	VIDEO_SOURCE_MODE		)
 ) u_video_stitch_pcie_top (
 	.srio0_tvalid							( 	srio_sprx_tvalid		[0* 1+: 1]	),
 	.srio0_tready							( 	video_srio0_tready				),
@@ -1245,6 +1292,13 @@ video_stitch_pcie_top #(
 	.srio0_tdata							( 	srio_iorx_tdata		[0*64+:64]	),
 	.srio0_tkeep							( 	srio_iorx_tkeep		[0* 8+: 8]	),
 	.srio0_tuser							( 	srio_iorx_tuser		[0*32+:32]	),
+
+	.replay_tvalid						( 	video_replay_tvalid			),
+	.replay_tready						( 	video_replay_tready			),
+	.replay_tlast						( 	video_replay_tlast			),
+	.replay_tdata						( 	video_replay_tdata			),
+	.replay_tkeep						( 	video_replay_tkeep			),
+	.replay_tuser						( 	video_replay_tuser			),
 
 	.srio0_nontarget_tvalid				( 	srio_vdrx_tvalid		[0* 1+: 1]	),
 	.srio0_nontarget_tready				( 	srio_vdrx_tready		[0* 1+: 1]	),
@@ -1707,33 +1761,72 @@ generate for(i=0;i<P_Srio_CH_NUM_R;i=i+1) begin:i_SP_G
 		assign dma_rio_gt_tready[i*1+:1] = 1'b1;
 	end
 
+	if(i == VIDEO_LOAD_DMA_CH) begin : i_VIDEO_LOAD_CONVERT_G
 	axis_convert_top#(
-		.	DW		(	PCIE_DW		)	,
-		.	QW		(	SRIO_DW		)
-	)sp_tx_convert(
-		.	axsr_tvalid			(	dma_m_axis_tvalid	[	i	*	1			+:	1			]	)			,	//	input
-		.	axsr_tready			(	dma_m_axis_tready	[	i	*	1			+:	1			]	)			,	//	output
-		.	axsr_tlast			(	dma_m_axis_tlast	[	i	*	1			+:	1			]	)			,	//	input
-		.	axsr_tdata			(	dma_m_axis_tdata	[	i	*	PCIE_DW		+:	PCIE_DW		]	)			,	//	input		[	DW		-	1	:	0	]
-		.	axsr_tuser			(	dma_m_axis_tuser	[	i	*	64			+:	64			]	)			,	//	input		[	64		-	1	:	0	]
-		.	axsr_tkeep			(	dma_m_axis_tkeep	[	i	*	PCIE_DW/8	+:	PCIE_DW/8	]	)			,	//	input		[	DW/8	-	1	:	0	]
-		.	axsr_tstrb			(	dma_m_axis_tstrb	[	i	*	PCIE_DW/8	+:	PCIE_DW/8	]	)			,	//	input		[	DW/8	-	1	:	0	]
-		.	axsr_tdest			(	dma_m_axis_tdest	[	i	*	4			+:	4			]	)			,	//	input		[	4		-	1	:	0	]
-		.	axsr_tid			(	dma_m_axis_tid		[	i	*	4			+:	4			]	)			,	//	input		[	4		-	1	:	0	]
-		.	i_rst				(	pcie_rst														)			,	//	input
-		.	i_clk				(	pcie_clk														)			,	//	input
-		.	axst_tvalid			(	dma_rio_tx_tvalid	[	i	*	1			+:	1			]	)			,	//	output
-		.	axst_tready			(	dma_rio_tx_tready	[	i	*	1			+:	1			]	)			,	//	input
-		.	axst_tlast			(	dma_rio_tx_tlast	[	i	*	1			+:	1			]	)			,	//	output
-		.	axst_tdata			(	dma_rio_tx_tdata	[	i	*	SRIO_DW		+:	SRIO_DW		]	)			,	//	output		[	QW		-	1	:	0	]
-		.	axst_tuser			(	dma_rio_tx_tuser	[	i	*	64			+:	64			]	)			,	//	output		[	64		-	1	:	0	]
-		.	axst_tkeep			(	dma_rio_tx_tkeep	[	i	*	SRIO_DW/8	+:	SRIO_DW/8	]	)			,	//	output		[	QW/8	-	1	:	0	]
-		.	axst_tstrb			(	dma_rio_tx_tstrb	[	i	*	SRIO_DW/8	+:	SRIO_DW/8	]	)			,	//	output		[	QW/8	-	1	:	0	]
-		.	axst_tdest			(	dma_rio_tx_tdest	[	i	*	4			+:	4			]	)			,	//	output		[	4		-	1	:	0	]
-		.	axst_tid			(	dma_rio_tx_tid		[	i	*	4			+:	4			]	)			,	//	output		[	4		-	1	:	0	]
-		.	o_rst				(	sys_rst															)			,	//	input
-		.	o_clk				(	fst_clk															)			 	//	input
+		.	LOOP_NUM(  i			),
+		.	DW		( 	PCIE_DW		),
+		.	QW		( 	SRIO_DW		)
+	)video_load_convert(
+		.	axsr_tvalid			( 	dma_m_axis_tvalid	[ i * 1			+: 1			]	)			,
+		.	axsr_tready			( 	dma_m_axis_tready	[ i * 1			+: 1			]	)			,
+		.	axsr_tlast			( 	dma_m_axis_tlast	[ i * 1			+: 1			]	)			,
+		.	axsr_tdata			( 	dma_m_axis_tdata	[ i * PCIE_DW	+: PCIE_DW	]	)			,
+		.	axsr_tuser			( 	dma_m_axis_tuser	[ i * 64		+: 64		]	)			,
+		.	axsr_tkeep			( 	dma_m_axis_tkeep	[ i * PCIE_DW/8	+: PCIE_DW/8	]	)			,
+		.	axsr_tstrb			( 	dma_m_axis_tstrb	[ i * PCIE_DW/8	+: PCIE_DW/8	]	)			,
+		.	axsr_tdest			( 	dma_m_axis_tdest	[ i * 4			+: 4			]	)			,
+		.	axsr_tid			( 	dma_m_axis_tid		[ i * 4			+: 4			]	)			,
+		.	i_rst				( 	pcie_rst										)			,
+		.	i_clk				( 	pcie_clk										)			,
+		.	axst_tvalid			( 	video_load_tvalid								)			,
+		.	axst_tready			( 	video_load_tready								)			,
+		.	axst_tlast			( 	video_load_tlast								)			,
+		.	axst_tdata			( 	video_load_tdata								)			,
+		.	axst_tuser			( 	video_load_tuser								)			,
+		.	axst_tkeep			( 	video_load_tkeep								)			,
+		.	axst_tstrb			( 													)			,
+		.	axst_tdest			( 													)			,
+		.	axst_tid			( 													)			,
+		.	o_rst				( 	sys_rst										)			,
+		.	o_clk				( 	sp_log_clk[0]								)
 	);
+		assign dma_rio_tx_tvalid[i*1+:1] = 1'b0;
+		assign dma_rio_tx_tlast [i*1+:1] = 1'b0;
+		assign dma_rio_tx_tdata [i*SRIO_DW+:SRIO_DW] = {SRIO_DW{1'b0}};
+		assign dma_rio_tx_tuser [i*64+:64] = 64'd0;
+		assign dma_rio_tx_tkeep [i*SRIO_DW/8+:SRIO_DW/8] = {(SRIO_DW/8){1'b0}};
+		assign dma_rio_tx_tstrb [i*SRIO_DW/8+:SRIO_DW/8] = {(SRIO_DW/8){1'b0}};
+		assign dma_rio_tx_tdest [i*4+:4] = 4'd0;
+		assign dma_rio_tx_tid   [i*4+:4] = 4'd0;
+	end else begin : i_SP_TX_CONVERT_G
+	axis_convert_top#(
+		.	DW		( 	PCIE_DW		),
+		.	QW		( 	SRIO_DW		)
+	)sp_tx_convert(
+		.	axsr_tvalid			( 	dma_m_axis_tvalid	[ i * 1			+: 1			]	)			,
+		.	axsr_tready			( 	dma_m_axis_tready	[ i * 1			+: 1			]	)			,
+		.	axsr_tlast			( 	dma_m_axis_tlast	[ i * 1			+: 1			]	)			,
+		.	axsr_tdata			( 	dma_m_axis_tdata	[ i * PCIE_DW	+: PCIE_DW	]	)			,
+		.	axsr_tuser			( 	dma_m_axis_tuser	[ i * 64		+: 64		]	)			,
+		.	axsr_tkeep			( 	dma_m_axis_tkeep	[ i * PCIE_DW/8	+: PCIE_DW/8	]	)			,
+		.	axsr_tstrb			( 	dma_m_axis_tstrb	[ i * PCIE_DW/8	+: PCIE_DW/8	]	)			,
+		.	axsr_tdest			( 	dma_m_axis_tdest	[ i * 4			+: 4			]	)			,
+		.	axsr_tid			( 	dma_m_axis_tid		[ i * 4			+: 4			]	)			,
+		.	i_rst				( 	pcie_rst										)			,
+		.	i_clk				( 	pcie_clk										)			,
+		.	axst_tvalid			( 	dma_rio_tx_tvalid	[ i * 1			+: 1			]	)			,
+		.	axst_tready			( 	dma_rio_tx_tready	[ i * 1			+: 1			]	)			,
+		.	axst_tlast			( 	dma_rio_tx_tlast	[ i * 1			+: 1			]	)			,
+		.	axst_tdata			( 	dma_rio_tx_tdata	[ i * SRIO_DW	+: SRIO_DW	]	)			,
+		.	axst_tuser			( 	dma_rio_tx_tuser	[ i * 64		+: 64		]	)			,
+		.	axst_tkeep			( 	dma_rio_tx_tkeep	[ i * SRIO_DW/8	+: SRIO_DW/8	]	)			,
+		.	axst_tstrb			( 	dma_rio_tx_tstrb	[ i * SRIO_DW/8	+: SRIO_DW/8	]	)			,
+		.	axst_tdest			( 	dma_rio_tx_tdest	[ i * 4			+: 4			]	)			,
+		.	axst_tid			( 	dma_rio_tx_tid		[ i * 4			+: 4			]	)			,
+		.	o_rst				( 	sys_rst										)			,
+		.	o_clk				( 	fst_clk										)
+	);
+	end
 	`endif
 end
 endgenerate

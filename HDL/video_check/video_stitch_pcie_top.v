@@ -15,6 +15,7 @@ module video_stitch_pcie_top #(
 	parameter		RAW10_SHIFT					= 6,
 	parameter		DUP_SRIO0_ENABLE			= 1,
 	parameter		TEST_PATTERN_ENABLE			= 1,
+	parameter		SOURCE_MODE					= (TEST_PATTERN_ENABLE ? 1 : 0),
 	parameter		TEST_PACKET_BYTES			= 4096
 )(
 	input										srio0_tvalid,
@@ -23,6 +24,13 @@ module video_stitch_pcie_top #(
 	input		[63:0]							srio0_tdata,
 	input		[7:0]							srio0_tkeep,
 	input		[31:0]							srio0_tuser,
+
+	input										replay_tvalid,
+	output										replay_tready,
+	input										replay_tlast,
+	input		[63:0]							replay_tdata,
+	input		[7:0]							replay_tkeep,
+	input		[31:0]							replay_tuser,
 
 	output										srio0_nontarget_tvalid,
 	input										srio0_nontarget_tready,
@@ -81,14 +89,27 @@ module video_stitch_pcie_top #(
 	wire	[63:0]								pattern_tdata;
 	wire	[7:0]								pattern_tkeep;
 	wire	[31:0]								pattern_tuser;
+	wire										use_srio0_source;
+	wire										use_pattern_source;
+	wire										use_replay_source;
 
-	assign classifier_srio_tvalid = TEST_PATTERN_ENABLE ? pattern_tvalid : srio0_tvalid;
-	assign classifier_srio_tlast  = TEST_PATTERN_ENABLE ? pattern_tlast  : srio0_tlast;
-	assign classifier_srio_tdata  = TEST_PATTERN_ENABLE ? pattern_tdata  : srio0_tdata;
-	assign classifier_srio_tkeep  = TEST_PATTERN_ENABLE ? pattern_tkeep  : srio0_tkeep;
-	assign classifier_srio_tuser  = TEST_PATTERN_ENABLE ? pattern_tuser  : srio0_tuser;
-	assign pattern_tready         = TEST_PATTERN_ENABLE ? classifier_srio_tready : 1'b0;
-	assign srio0_tready           = TEST_PATTERN_ENABLE ? 1'b1 : classifier_srio_tready;
+	assign use_srio0_source   = (SOURCE_MODE == 0);
+	assign use_pattern_source = (SOURCE_MODE == 1);
+	assign use_replay_source  = (SOURCE_MODE == 2);
+
+	assign classifier_srio_tvalid = use_replay_source ? replay_tvalid :
+									use_pattern_source ? pattern_tvalid : srio0_tvalid;
+	assign classifier_srio_tlast  = use_replay_source ? replay_tlast :
+									use_pattern_source ? pattern_tlast  : srio0_tlast;
+	assign classifier_srio_tdata  = use_replay_source ? replay_tdata :
+									use_pattern_source ? pattern_tdata  : srio0_tdata;
+	assign classifier_srio_tkeep  = use_replay_source ? replay_tkeep :
+									use_pattern_source ? pattern_tkeep  : srio0_tkeep;
+	assign classifier_srio_tuser  = use_replay_source ? replay_tuser :
+									use_pattern_source ? pattern_tuser  : srio0_tuser;
+	assign pattern_tready         = use_pattern_source ? classifier_srio_tready : 1'b0;
+	assign replay_tready          = use_replay_source ? classifier_srio_tready : 1'b0;
+	assign srio0_tready           = use_srio0_source ? classifier_srio_tready : 1'b1;
 
 	video_srio_pattern_src #(
 		.DW									(64),
