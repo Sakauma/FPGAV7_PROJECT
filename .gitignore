@@ -23,6 +23,7 @@ LPVX30_0040/LPVX30_0040.ip_user_files/
 *.pb
 *.wdb
 *.wcfg.bak
+xsim.dir/
 *.str
 *.dmp
 *.backup.*
@@ -66,3 +67,7 @@ desktop.ini
 
 # Local publish workspace
 _publish/
+
+# Vitis HLS local output
+hls/**/video_gray10_axis_prj/
+hls/**/_hls_work/
