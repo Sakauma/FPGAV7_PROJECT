@@ -1,4 +1,4 @@
-#include "video_gray10_axis.h"
+#include "../src/video_gray10_axis.h"
 
 #include <cstdint>
 #include <iostream>
